@@ -3,7 +3,7 @@ export default function DashboardLayout({
   }) {
     return (
       <section>
-        <nav className="m-2">This is the nav bar</nav>
+        <nav>This is the nav bar</nav>
         {children}
       </section>
     )
