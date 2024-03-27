@@ -13,7 +13,7 @@
 
 
         const content = (
-            <section>
+            <section>   
                 <br/>
                 {blogs.map(blog => {
                     return (
