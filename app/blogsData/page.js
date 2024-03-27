@@ -1,29 +1,25 @@
-    // import MetaData from 'next'
     import getAllBlogs from '../redux/apis/allBlogsApi'
     import Link from "next/link";
 
-    export const MetaData = {
-        title: 'Users',
-    } 
+    export const metadata ={
+        title: 'Blogs',
+    }
+
     
     export default async function Page() {
-        const blogsData = getAllBlogs()
+        const blogsData = await getAllBlogs()
 
-        const blogs = await blogsData.values
+        const blogs = await blogsData.data.values
 
-        console.log(blogsData?.values, 'blogs')
 
         const content = (
             <section>
-                <h2>
-                    <Link href="/">Back to home</Link>
-                </h2>
                 <br/>
                 {blogs.map(blog => {
                     return (
                         <>
-                            <p key={blog.id}>
-                                <Link href={`/blog/${blog.id}`}>{blog.name}</Link>
+                            <p key={blog._id}>
+                                <Link href={`/blogsData/${blog._id}`}>{blog.title}</Link>
                             </p>
                             <br />
                         </>

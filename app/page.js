@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import GridExample from "./components/AgGridTable";
 import LeftMainComponent from "./components/LeftMainComponent";
 import RightMainComponent from "./components/RightMainComponent";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
   <Suspense fallback={<p>Loading feed ...</p>}>
     <LeftMainComponent />
   </Suspense>
+  <Link href="/blogsData">Blogs</Link>
   <Suspense fallback={<p>Loading User Selections...</p>}>
   <RightMainComponent />
   </Suspense>
