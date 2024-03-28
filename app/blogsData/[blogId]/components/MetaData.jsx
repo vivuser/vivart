@@ -5,7 +5,7 @@ export async function UserPostMeta({ promise }) {
     const content = posts.map(post => {
         return {
             title: post.title,
-            description: `This is the page of ${blog.content}`
+            description: `This is the page of ${post.content}`
         }
     });
 

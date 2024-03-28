@@ -5,7 +5,7 @@ export default async function UserPosts({ promise }) {
         return (
             <article key={post.id}>
                 <h2>{post.title}</h2>
-                <p>{post.body}</p>
+                <p>{post.content}</p>
                 <br />
             </article>
         );
