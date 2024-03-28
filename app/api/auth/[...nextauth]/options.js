@@ -10,8 +10,8 @@ const options = ({
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                username: {
-                    label: "Username: ",
+                email: {
+                    label: "Email: ",
                     type: "text",
                     placeholder: "your-user-name"
                 },
@@ -22,11 +22,13 @@ const options = ({
                 }
             },
             async authorize(credentials) {
-                const res = await fetch("http://localhost:3001/login", {
+                console.log('trying to log', credentials)
+                const res = await fetch("http://localhost:3001/auth/login", {
                     method: 'POST',
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" }
                 })
+                console.log(res, 'response..')
                 const user = await res.json()
 
                 if (res.ok && user) {
