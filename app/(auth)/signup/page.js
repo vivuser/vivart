@@ -1,3 +1,5 @@
+import { SignUpForm } from "../authComponents/SignUpForm";
+
 const Signup = () => {
 
     async function registerUser(formData) {
@@ -19,7 +21,10 @@ const Signup = () => {
                 body:JSON.stringify(formFields)
             });
 
-            if (!response.ok) {
+            if (response.ok) {
+                console.log('registered successfully')
+            }else
+                {
                 throw new Error('Failed to register user');
             }
         } catch (error) {
@@ -29,17 +34,18 @@ const Signup = () => {
     }
 
 
-    return (
-        <div className="flex flex-col mx-auto max-w-lg">
-        <h2 className="text-lg font-normal">Register</h2>
-        <form action={registerUser} className="flex flex-col">
-        <input  name="email" placeholder="email" className="p-2 border-t-1 m-1"/>
-        <input  name="password" placeholder="password" className="p-2 border-t-1 m-1"/>
-        <input  name="confirmPassword" placeholder="confirm password" className="p-2 border-t-1 m-1"/>
-        <button type="submit" className="bg-violet-300 shadow-md p-2 rounded-md">Submit</button>
+    return (<>
+        <SignUpForm />
+        {/* <div className="flex flex-col mx-auto max-w-lg bg-gray-200 m-20">
+        <h2 className="text-lg font-normal mx-auto pt-2">Register</h2>
+        <form action={registerUser} className="flex flex-col p-4">
+        <input  name="email" placeholder="email" className="p-2 border-t-1 m-1 w-full"/>
+        <input  name="password" placeholder="password" className="p-2 border-t-1 m-1 w-full"/>
+        <input  name="confirmPassword" placeholder="confirm password" className="p-2 border-t-1 m-1 w-full"/>
+        <button type="submit" className="bg-violet-300 shadow-md p-2 rounded-md w-full m-1">Submit</button>
         </form>
-        </div>
-    )
+        </div> */}
+  </>  )
 }
 
 export default Signup;  

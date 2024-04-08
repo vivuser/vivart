@@ -21,6 +21,7 @@ const options = ({
                     placeholder: "your-password"
                 }
             },
+            
             async authorize(credentials) {
                 console.log('trying to log', credentials)
                 const res = await fetch("http://localhost:3001/auth/login", {
