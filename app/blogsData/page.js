@@ -12,7 +12,7 @@
 
         const blogs = await blogsData.data.values
         const tags = await blogsData.data.tags
-        const visibleTags = tags.filter(tag => tag && tag.trim() !== '');
+        const visibleTags = tags?.filter(tag => tag && tag.trim() !== '');
 
         const content = (
             <div className="container max-w-4xl py-6 lg:py-10 mx-auto">
@@ -27,7 +27,7 @@
               </div>
             </div>    
             <div className="flex flex-wrap gap-1 mt-2">
-                { visibleTags.map((tag, index) => (
+                { visibleTags?.map((tag, index) => (
                     <div key={index} className="bg-gray-100 px-2 py-1 text-xs">
                         {tag}
                     </div>

@@ -1,10 +1,12 @@
 import { SignUpForm } from "../authComponents/SignUpForm";
+import RegisterForm from "../authComponents/signup";
 
 const Signup = () => {
 
 
     return (<>
-        <SignUpForm />
+        <RegisterForm />
+        {/* <SignUpForm /> */}
         {/* <div className="flex flex-col mx-auto max-w-lg bg-gray-200 m-20">
         <h2 className="text-lg font-normal mx-auto pt-2">Register</h2>
         <form action={registerUser} className="flex flex-col p-4">
