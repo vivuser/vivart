@@ -2,37 +2,6 @@ import { SignUpForm } from "../authComponents/SignUpForm";
 
 const Signup = () => {
 
-    async function registerUser(formData) {
-        'use server'
-
-        const formFields = {
-            email: formData.get('email'),
-            password: formData.get('password'),
-            confirmPassword : formData.get('confirmPassword')
-        }
-        console.log(formFields , 'checking  formfields..')
-
-        try{
-            const response = await fetch('http://localhost:3001/auth/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body:JSON.stringify(formFields)
-            });
-
-            if (response.ok) {
-                console.log('registered successfully')
-            }else
-                {
-                throw new Error('Failed to register user');
-            }
-        } catch (error) {
-            console.error('Error registering user:', error)
-        }
-
-    }
-
 
     return (<>
         <SignUpForm />
