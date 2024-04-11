@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.3",
     "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide": "^4.1.4",
     "ag-grid-react": "^31.2.0",
     "axios": "^1.6.8",
     "date-fns": "^3.6.0",
+    "lodash": "^4.17.21",
     "next": "14.1.4",
     "next-auth": "^4.24.7",
     "react": "^18",

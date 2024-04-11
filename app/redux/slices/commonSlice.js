@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    modal: {
+        isOpen: false,
+        content: null,
+        data: {},
+    },
     snackbar: {
         isOpen: false,
         color: 'primary',
@@ -14,6 +19,16 @@ const commonSlice = createSlice({
     name: 'common',
     initialState,
     reducers: {
+        openModal: (state, action) => {
+            state.modal.isOpen = true;
+            state.modal.content = action.payload.content;
+            state.modal.data = action.payload.data;
+        },
+        closeModal: (state) => {
+            state.modal.isOpen = false;
+            state.modal.content = null;
+            state.modal.data = {};
+        },
         openSnackbar: (state, action) => {
             state.snackbar.isOpen = true;
             state.snackbar.color = action.payload.color || initialState.snackbar.color;
@@ -30,6 +45,8 @@ const commonSlice = createSlice({
 });
 
 export const {
+    openModal,
+    closeModal,
     openSnackbar,
     closeSnackbar,
 } = commonSlice.actions;
