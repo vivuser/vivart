@@ -15,7 +15,6 @@ export default function RegisterForm() {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
-    const [showModal, setShowModal] = useState(false)
     const dispatch = useDispatch();
     const modalIsOpen = useSelector(state => state.common.modal.isOpen)
 
@@ -40,8 +39,7 @@ export default function RegisterForm() {
 
             if (response.status === 201) {
                 console.log('registered successfully')
-                // setShowModal(true)
-                dispatch(openModal({ content: "SignupModal", data: {} }));
+                dispatch(openModal({ content: "SelectTags", data: {} }));
             }else
                 {
                 throw new Error('Failed to register user');
@@ -54,6 +52,7 @@ export default function RegisterForm() {
 
     return (
         <>
+        {modalIsOpen ? <Modal /> : 
         <div className="flex flex-col mx-auto max-w-lg">
         <input placeholder="email" type="email" onChange={e=>setEmail(e.target.value)}/>
         {emailError && <p className="text-red-500">{emailError}</p>}
@@ -62,8 +61,8 @@ export default function RegisterForm() {
         <input placeholder="confirmPassword" type="password" onChange={e=>setConfirmPassword(e.target.value)}/>
         {confirmPasswordError && <p className="text-red-500">{confirmPasswordError}</p>}
         <button className="bg-gray-200 p-2 mx-auto" onClick={() => submitForm()}>Submit</button>
-        {modalIsOpen && <Modal />}
         </div>
+    }
         </>
     )
 
