@@ -1,6 +1,7 @@
 "use client"
 
 import Modal from "@/app/components/Modal";
+import { signupFailure, signupStart, signupSucess } from "@/app/redux/slices/authSlice";
 import { openModal } from "@/app/redux/slices/commonSlice";
 import { validateRegisterForm } from "@/app/utilities/validations/authValidations";
 import axios from "axios";
@@ -29,6 +30,8 @@ export default function RegisterForm() {
                 return;
             }
 
+            dispatch(signupStart());
+
             const response = await axios.post('http://localhost:3001/auth/signup', {
                 email: email,
                 password: password,
@@ -39,6 +42,7 @@ export default function RegisterForm() {
 
             if (response.status === 201) {
                 console.log('registered successfully')
+                dispatch(signupSucess(response.data.userId));
                 dispatch(openModal({ content: "SelectTags", data: {} }));
             }else
                 {
@@ -47,6 +51,7 @@ export default function RegisterForm() {
         }
         catch (error) {
             console.error('Error registering user:', error)
+            dispatch(signupFailure(error.message));
         }
     }
 

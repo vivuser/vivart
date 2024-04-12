@@ -14,6 +14,7 @@
         const tags = await blogsData.data.tags
         const visibleTags = tags?.filter(tag => tag && tag.trim() !== '');
 
+
         const content = (
             <div className="container max-w-4xl py-6 lg:py-10 mx-auto">
             <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
