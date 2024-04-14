@@ -1,6 +1,7 @@
     import getAllBlogs from '../redux/apis/allBlogsApi'
     import Link from "next/link";
     import { format } from 'date-fns';
+import VisibleTagsButton from './[blogId]/components/VisibleTagsButton';
 
     export const metadata ={
         title: 'Blogs',
@@ -26,14 +27,15 @@
                   A blogs website built in nextJs
                 </p>
               </div>
-            </div>    
-            <div className="flex flex-wrap gap-1 mt-2">
+            </div>  
+            <VisibleTagsButton />
+            {/* <div className="flex flex-wrap gap-1 mt-2">
                 { visibleTags?.map((tag, index) => (
                     <div key={index} className="bg-gray-100 px-2 py-1 text-xs">
                         {tag}
                     </div>
                 ))}
-            </div>  
+            </div>   */}
             <hr className="my-8" />     
             <div className='grid gap-10 sm:grid-cols-2 mx-10'>
                 {blogs.map(blog => {

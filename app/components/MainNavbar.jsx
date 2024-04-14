@@ -2,7 +2,6 @@ import Link from "next/link";
 
 const MainNavbar = () => {
 
-
     return (
         <div className="m-4">
             <ul className="flex flex-wrap mx-10">

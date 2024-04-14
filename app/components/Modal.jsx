@@ -52,7 +52,8 @@ import { useSelector } from "react-redux";
                 
             const response = await axios.put(`http://localhost:3001/blogs/topics/${userId}`, requestData )
 
-            router.push(`/blogsData/user/${userId}`)
+            router.push(`/blogsData/userBlogs/${userId}`)
+            
         } catch(error) {
                 console.error("Error sending selected topics: ", error);
         }

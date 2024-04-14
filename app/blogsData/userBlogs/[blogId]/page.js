@@ -7,8 +7,11 @@ export const metadata ={
 }
 
 
-export default async function Page() {
-    const blogs = await getBlogsByUser(1712912617005)
+export default async function Page(searchParams) {
+    
+    const userId = searchParams.params.blogId
+
+    const blogs = await getBlogsByUser(userId)
 
     console.log(blogs, 'blogsData')
 

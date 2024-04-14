@@ -58,14 +58,17 @@ export default function RegisterForm() {
     return (
         <>
         {modalIsOpen ? <Modal /> : 
-        <div className="flex flex-col mx-auto max-w-lg">
-        <input placeholder="email" type="email" onChange={e=>setEmail(e.target.value)}/>
-        {emailError && <p className="text-red-500">{emailError}</p>}
-        <input placeholder="password" type="password" onChange={e=>setPassword(e.target.value)}/>
-        {passwordError && <p className="text-red-500">{passwordError}</p>}
-        <input placeholder="confirmPassword" type="password" onChange={e=>setConfirmPassword(e.target.value)}/>
-        {confirmPasswordError && <p className="text-red-500">{confirmPasswordError}</p>}
-        <button className="bg-gray-200 p-2 mx-auto" onClick={() => submitForm()}>Submit</button>
+        <div className="flex flex-col mx-auto max-w-md bg-slate-100 mt-20 shadow-md">
+        <h2 className="text-center font-semibold text-xl text-slate-700 font-sans m-2">Sign up</h2>
+        <input placeholder="Email" type="email" onChange={e=>setEmail(e.target.value)} className="p-1 m-2 mt-2"/>
+        {emailError && <p className="text-red-500 pl-2">{emailError}</p>}
+        <input placeholder="Password" type="password" onChange={e=>setPassword(e.target.value)} className="p-1 m-2"/>
+        {passwordError && <p className="text-red-500 pl-2">{passwordError}</p>}
+        <input placeholder="Confirm Password" type="password" onChange={e=>setConfirmPassword(e.target.value)} className="p-1 m-2"/>
+        {confirmPasswordError && <p className="text-red-500 pl-2">{confirmPasswordError}</p>}
+        <button className="bg-gray-300 p-2 mx-auto mb-1" onClick={() => submitForm()}>Submit</button>
+        <h4 className="m-3 text-sm text-center font-sans">Already registered? <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1">Login</span></h4>
+        <h4 className="m-3 text-sm text-center font-sans">Login using <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1">Github</span></h4>
         </div>
     }
         </>
