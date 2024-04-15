@@ -24,10 +24,16 @@ export default function VisibleTagsButton () {
         fetchData()
    }, [])
 
-   const visibleTags = blogsData.data.tags?.filter(tag => tag && tag.trim() !== '');
+   const visibleTags = ['All', ...blogsData.data.tags?.filter(tag => tag && tag.trim() !== '')];
    
    const handleFilterBlogs = (tag) => {
+    let filtered;
+    if (tag === 'All') {
+        filtered = blogsData.data.values;
+    }
+    else {
     const filtered = blogsData.data.values.filter(blog => blog.tags.includes(tag));
+    }
     setFilteredBlogs(filtered)
     setSelectedTag(tag);
     const url  = new URL(window.location.href);
