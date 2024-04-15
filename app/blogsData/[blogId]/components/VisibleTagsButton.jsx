@@ -1,6 +1,7 @@
 'use client'
 
 import getAllBlogs from "@/app/redux/apis/allBlogsApi"
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 
 export default function VisibleTagsButton () {
@@ -8,6 +9,7 @@ export default function VisibleTagsButton () {
     const [blogsData , setBlogsData] = useState({ data: { values:[], tags:[] }})
     const [ selectedTag, setSelectedTag ] = useState(null);
     const [ filteredBlogs, setFilteredBlogs ] = useState([]); 
+    const router =useRouter()
 
    useEffect(() => {
         const fetchData = async () => {
@@ -28,6 +30,11 @@ export default function VisibleTagsButton () {
     const filtered = blogsData.data.values.filter(blog => blog.tags.includes(tag));
     setFilteredBlogs(filtered)
     setSelectedTag(tag);
+    const url  = new URL(window.location.href);
+    console.log(url, 'kk')
+    url.searchParams.set("tag",tag);
+    window.history.pushState({ path: url.href }, "", url.href); 
+    router.push(url.href)
    }
 
    console.log(filteredBlogs, 'client side filtered blogs')

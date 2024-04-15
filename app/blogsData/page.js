@@ -8,13 +8,21 @@ import VisibleTagsButton from './[blogId]/components/VisibleTagsButton';
     }
 
     
-    export default async function Page() {
-        const blogsData = await getAllBlogs()
+    export default async function Page(searchParams) {
+        const tag = searchParams.searchParams.tag;
+        console.log(tag, '<=query on server side..')
+        const blogsData = await getAllBlogs(tag)
 
         const blogs = await blogsData.data.values
-        const tags = await blogsData.data.tags
-        const visibleTags = tags?.filter(tag => tag && tag.trim() !== '');
 
+        let filteredBlogs = blogs;
+
+        if (tag) {
+            filteredBlogs = blogs.filter(blog => {
+                const blogTags = blog.tags || [];
+                return blogTags.includes(tag);  
+            });
+        }
 
         const content = (
             <div className="container max-w-4xl py-6 lg:py-10 mx-auto">
@@ -29,16 +37,9 @@ import VisibleTagsButton from './[blogId]/components/VisibleTagsButton';
               </div>
             </div>  
             <VisibleTagsButton />
-            {/* <div className="flex flex-wrap gap-1 mt-2">
-                { visibleTags?.map((tag, index) => (
-                    <div key={index} className="bg-gray-100 px-2 py-1 text-xs">
-                        {tag}
-                    </div>
-                ))}
-            </div>   */}
             <hr className="my-8" />     
             <div className='grid gap-10 sm:grid-cols-2 mx-10'>
-                {blogs.map(blog => {
+                {filteredBlogs.map(blog => {
                     return (
                         <>
                         <article key={blog._id} className='p-2 bg-slate-50 rounded-sm border-black'>
