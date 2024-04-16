@@ -16,6 +16,7 @@ export default function RegisterForm() {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
+    const [isLogin, setIsLogin] = useState(false);
     const dispatch = useDispatch();
     const modalIsOpen = useSelector(state => state.common.modal.isOpen)
 
@@ -55,6 +56,10 @@ export default function RegisterForm() {
         }
     }
 
+    const handleLogin = () => {
+        setIsLogin(!isLogin)
+    }
+
     return (
         <>
         {modalIsOpen ? <Modal /> : 
@@ -64,10 +69,13 @@ export default function RegisterForm() {
         {emailError && <p className="text-red-500 pl-2">{emailError}</p>}
         <input placeholder="Password" type="password" onChange={e=>setPassword(e.target.value)} className="p-1 m-2"/>
         {passwordError && <p className="text-red-500 pl-2">{passwordError}</p>}
+        { !isLogin && 
+        <>
         <input placeholder="Confirm Password" type="password" onChange={e=>setConfirmPassword(e.target.value)} className="p-1 m-2"/>
         {confirmPasswordError && <p className="text-red-500 pl-2">{confirmPasswordError}</p>}
+        </> }
         <button className="bg-gray-300 p-2 mx-auto mb-1" onClick={() => submitForm()}>Submit</button>
-        <h4 className="m-3 text-sm text-center font-sans">Already registered? <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1">Login</span></h4>
+        <h4 className="m-3 text-sm text-center font-sans">Already registered? <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1" onClick={() => handleLogin()}>Login</span></h4>
         <h4 className="m-3 text-sm text-center font-sans">Login using <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1">Github</span></h4>
         </div>
     }
