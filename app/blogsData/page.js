@@ -17,12 +17,22 @@ import VisibleTagsButton from './[blogId]/components/VisibleTagsButton';
 
         let filteredBlogs = blogs;
 
-        if (tag) {
+        if (tag) { 
+            if (tag === 'All'){
+                filteredBlogs = blogs.filter(blog => {
+                    const blogTags = blog.tags || [];
+                    return blogTags;  
+                });
+            }
+            else {
             filteredBlogs = blogs.filter(blog => {
                 const blogTags = blog.tags || [];
                 return blogTags.includes(tag);  
             });
         }
+        }
+
+        console.log(filteredBlogs, 'filtered blogs on server side')
 
         const content = (
             <div className="container max-w-4xl py-6 lg:py-10 mx-auto">

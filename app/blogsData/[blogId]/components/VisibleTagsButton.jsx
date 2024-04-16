@@ -32,14 +32,14 @@ export default function VisibleTagsButton () {
         filtered = blogsData.data.values;
     }
     else {
-    const filtered = blogsData.data.values.filter(blog => blog.tags.includes(tag));
+        filtered = blogsData.data.values.filter(blog => blog.tags.includes(tag));
     }
+    
     setFilteredBlogs(filtered)
     setSelectedTag(tag);
     const url  = new URL(window.location.href);
     console.log(url, 'kk')
     url.searchParams.set("tag",tag);
-    window.history.pushState({ path: url.href }, "", url.href); 
     router.push(url.href)
    }
 

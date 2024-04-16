@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { getServerSession } from "next-auth/next"
+import options from "../api/auth/[...nextauth]/options";
+import Logout from "./Logout";
 
-const MainNavbar = () => {
+const MainNavbar = async () => {
+    const session = await getServerSession(options)
+
+    console.log(session, 'session on server')
 
     return (
         <div className="m-4">
@@ -10,7 +16,11 @@ const MainNavbar = () => {
                 <li className="mx-10"><Link href="/contact">Contact</Link></li>
                 <li className="mx-10"><Link href="/blogsData">All blogs page</Link></li>
                 <li className="mx-10"><Link href="/client">Login using OAuth</Link></li>
+            {   session ?
+                <li className="mx-10"><Link href="/account">{session?.user?.name.split(' ')[0]}</Link></li>
+                        :
                 <li className="mx-10"><Link href="/signup">Register yourself</Link></li>
+            }
             </ul>
         </div>
     )

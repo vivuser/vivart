@@ -42,6 +42,9 @@ const authSlice = createSlice({
             state.error = action.payload
         },
         logout: (state) =>{
+            console.log('inside reducer')
+            console.log(state?.user, 'state')
+            console.log(state?.isAuthenticated, 'state')
             state.user = null;
             state.isAuthenticated = false;
             state.isLoading = false;
