@@ -1,17 +1,19 @@
-import { getServerSession } from "next-auth";
+'use client'
 import { useRouter } from "next/navigation";
-import options from "../api/auth/[...nextauth]/options";
+import { useSelector } from "react-redux";
 
-const AllBlogs = async () => {
-    const user = await getServerSession(options)
+const AllBlogs =  () => {
+    const router = useRouter()
+    const userId = useSelector(state => state?.auth?.user) 
 
-
-    console.log(user, '///')
+    const handleRedirectUser = () => {
+        router.push(`blogsData/user/${userId}`)
+    }
 
 
     return (
         <>
-        <h2>Blogs</h2>
+        <button onClick={handleRedirectUser}>Blogs</button>
         </>
     )
 }

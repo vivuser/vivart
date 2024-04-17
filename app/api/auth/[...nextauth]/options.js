@@ -49,14 +49,14 @@ const options = ({
             }
             return token
         },
-        async signIn(user) {
-            await createUserInDatabase(user);
-            return true;
-        },
-        async createUser(user) {
-            await createUserInDatabase(user);
-            return user;
-        }
+        // async signIn(user) {
+        //     await createUserInDatabase(user);
+        //     return true;
+        // },
+        // async createUser(user) {
+        //     await createUserInDatabase(user);
+        //     return user;
+        // }
         
     }
 
