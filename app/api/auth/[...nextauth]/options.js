@@ -7,7 +7,8 @@ const options = ({
             clientId: process.env.GITHUB_ID,
             clientSecret: process.env.GITHUB_SECRET,
         }),
-        CredentialsProvider({
+        CredentialsProvider(
+            {
             name: "Credentials",
             credentials: {
                 email: {
@@ -20,7 +21,8 @@ const options = ({
                     type: "password",
                     placeholder: "your-password"
                 }
-            },
+            }
+            ,
             
             async authorize(credentials) {
                 console.log('trying to log', credentials)
@@ -47,9 +49,20 @@ const options = ({
             }
             return token
         },
+        async signIn(user) {
+            await createUserInDatabase(user);
+            return true;
+        },
+        async createUser(user) {
+            await createUserInDatabase(user);
+            return user;
+        }
         
     }
 
 })
 
 export default options;
+
+
+

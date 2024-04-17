@@ -19,6 +19,7 @@ export default  async function SingleBlogPage({params}) {
          </Suspense>
         </div>
     )
+    
     return singleBlogContent;
 }       
 
