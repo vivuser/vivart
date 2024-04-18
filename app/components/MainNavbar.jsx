@@ -26,6 +26,8 @@ const MainNavbar = async () => {
                         :
                 <li className="mx-10"><Link href="/signup">Register yourself</Link></li>
             }
+                <li className="mx-10"><Link href="/write">Write</Link></li>
+
             </ul>
         </div>
     )
