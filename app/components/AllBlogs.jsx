@@ -6,8 +6,11 @@ const AllBlogs =  () => {
     const router = useRouter()
     const userId = useSelector(state => state?.auth?.user) 
 
+    console.log(userId, 'userId')
+
     const handleRedirectUser = () => {
-        router.push(`blogsData/user/${userId}`)
+        console.log('running')
+        router.push(`blogsData/userBlogs/${userId}`)
     }
 
 

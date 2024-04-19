@@ -15,14 +15,15 @@ const MainNavbar = async () => {
                 <li className="mx-10"><Link href="/">Home</Link></li>
                 <li className="mx-10"><Link href="/server">Server Login</Link></li>
                 <li className="mx-10"><Link href="/contact">Contact</Link></li>
-            {  session ?
-                <li className="mx-10"><Link href="/blogsData"><AllBlogs /></Link></li>
-                       :
-                <li className="mx-10"><Link href="/blogsData"><AllBlogs /></Link></li>
+            {  
+            // session ?
+            //     <li className="mx-10"><Link href="/blogsData"><AllBlogs /></Link></li>
+            //            :
+                <li className="mx-10"><AllBlogs /></li>
             }
                 <li className="mx-10"><Link href="/client">Login using OAuth</Link></li>
             {   session ?
-                <li className="mx-10"><Link href="/account">{session?.user?.name.split(' ')[0]}</Link></li>
+                <li className="mx-10"><Link href="/account">{session?.user?.name?.split(' ')[0]}</Link></li>
                         :
                 <li className="mx-10"><Link href="/signup">Register yourself</Link></li>
             }

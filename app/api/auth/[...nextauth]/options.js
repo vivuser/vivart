@@ -26,6 +26,8 @@ const options = ({
             
             async authorize(credentials) {
                 console.log('trying to log', credentials)
+
+                
                 const res = await fetch("http://localhost:3001/auth/login", {
                     method: 'POST',
                     body: JSON.stringify(credentials),
@@ -33,11 +35,12 @@ const options = ({
                 })
                 console.log(res, 'response..')
                 const user = await res.json()
-
+                console.log(user,' ====>')
                 if (res.ok && user) {
+                    console.log('returning')
                     return user
                 }
-                return null
+                // return null
             }
         })
 

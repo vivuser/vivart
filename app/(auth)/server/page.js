@@ -12,6 +12,7 @@ export default async function ServerPage(){
     return (
         <section className="flex flex-col gap-6">
             User: {session?.user.name}
+            UserId: {session?.user.userId}
         </section>
     )
 }
