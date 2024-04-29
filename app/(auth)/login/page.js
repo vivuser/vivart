@@ -1,6 +1,6 @@
 import RegisterForm from "../authComponents/signup";
 
-const Signup = () => {
+const Login = () => {
 
 
     return (<>
@@ -8,4 +8,4 @@ const Signup = () => {
   </>  )
 }
 
-export default Signup;  
+export default Login;  

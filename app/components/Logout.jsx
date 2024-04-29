@@ -3,12 +3,26 @@
 import { useDispatch} from "react-redux";
 import { logout } from "@/app/redux/slices/authSlice";
 import { signOut } from "next-auth/react";
+import { useRouter} from "next/navigation";
 
 
 const Logout = () => {
+    const router = useRouter()
+
+    const handleLogout = async () => {
+        signOut()
+            console.log('signedOut,,,,..')
+            .then(() => {
+            console.log('pushing,,,,..')
+                router.push('/');
+            })
+            .catch(error => {
+                console.error('Logout failed', error);
+            });
+    }
 
     return (
-        <button onClick={() => signOut()} className="underline underline-offset-2">Logout</button>
+        <button onClick={handleLogout} className="underline underline-offset-2">Logout</button>
     )
 }
 

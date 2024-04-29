@@ -7,9 +7,16 @@ import DrawIcon from '@mui/icons-material/Draw';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-const ReactQuill = dynamic(() => import('react-quill'), {
-    ssr:false
-})
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { useSession } from 'next-auth/react';
+import options from '../api/auth/[...nextauth]/options';
+
+// const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+//     ssr: false,
+//     loading: () => <p>Loading ...</p>,
+//   })
+
 const Write = () => {
     const [open, setOpen ] = useState(false);
     const [postContent, setPostContent] = useState("");
@@ -19,7 +26,50 @@ const Write = () => {
     const dispatch = useDispatch()
     const userData = useSelector((state) => state.auth);
     console.log(userData, 'userData')
+    const { data } = useSession(options);
+    console.log(data, ' name..')
+    const author = data?.user?.name
+    const authorId = data?.user?.id
 
+    const modules = {
+        toolbar: [
+          [{ header: '1' }, { header: '2' }, { font: [] }],
+          [{ size: [] }],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
+          [
+            { list: 'ordered' },
+            { list: 'bullet' },
+            { indent: '-1' },
+            { indent: '+1' },
+          ],
+          ['link', 'image', 'video'],
+          ['clean'],
+        ],
+        clipboard: {
+          // toggle to add extra line breaks when pasting HTML:
+          matchVisual: false,
+        },
+      }
+      /*
+       * Quill editor formats
+       * See https://quilljs.com/docs/formats/
+       */
+      const formats = [
+        'header',
+        'font',
+        'size',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'blockquote',
+        'list',
+        'bullet',
+        'indent',
+        'link',
+        'image',
+        'video',
+      ]
 
     const handleOpenAttachment = () => {
         setOpen((prev) => !prev);
@@ -50,8 +100,8 @@ const Write = () => {
                     title: title, 
                     content: postContent,
                     tags :postTags,
-                    userId: userData,
-                    author: userData.name,
+                    userId: authorId,
+                    author: author,
                     imageUrl: imageUrl
                 })
             })
@@ -68,8 +118,10 @@ const Write = () => {
 
     return (
         <div className="max-w-6xl mx-auto m-10">
+            <div className='flex flex-wrap justify-between'>
             <h2 className="text-center text-3xl text-slate-700">Write <span className='text-orange-200'><DesignServicesIcon fontSize='large'/></span></h2>
-
+            <button className='bg-slate-100 mx-auto p-2' onClick={handleSubmit}>Publish</button>
+            </div>
             <div className='flex flex-col'>
             <input type="text" placeholder="Title" className='mt-10 text-3xl border-none outline-none'
             onChange={(e) => setTitle(e.target.value)}/> 
@@ -92,16 +144,14 @@ const Write = () => {
             {/* <input type="text" placeholder='Content' className='outline-none p-2 h-80'
             onChange={(e) => setPostContent(e.target.value)}/> */}
 
-            <ReactQuill 
-                className='rounded-md p-2 h-80 custom-quill'
-                theme="bubble"
+            <ReactQuill
+                modules={modules}
+                theme="snow"
                 value={postContent}
                 onChange={setPostContent}
                 placeholder='Tell your story'
+                style={{ height: '400px'}}
             />
-
-            <button className='bg-slate-100 mx-auto p-2' onClick={handleSubmit}>Publish</button>
-
             </div>
         </div>
     )

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { format } from 'date-fns';
 import getBlogsByUser from '@/app/redux/apis/userBlogsApi';
+import { getServerSession } from "next-auth";
+import options from "@/app/api/auth/[...nextauth]/options";
 
 export const metadata ={
     title: 'Blogs',
@@ -8,7 +10,7 @@ export const metadata ={
 
 
 export default async function Page(searchParams) {
-    
+
     const userId = searchParams.params.blogId
 
     const blogs = await getBlogsByUser(userId)
@@ -16,6 +18,8 @@ export default async function Page(searchParams) {
     console.log(blogs, 'blogsData')
 
     const tags = await blogs
+    console.log(tags, 'tagss')
+
     // const visibleTags = tags?.filter(tag => tag && tag?.trim() !== '');
 
     const content = (
@@ -30,13 +34,13 @@ export default async function Page(searchParams) {
             </p>
           </div>
         </div>    
-        {/* <div className="flex flex-wrap gap-1 mt-2">
-            { visibleTags?.map((tag, index) => (
+         <div className="flex flex-wrap gap-1 mt-2">
+            { tags?.map((tag, index) => (
                 <div key={index} className="bg-gray-100 px-2 py-1 text-xs">
-                    {tag}
+                    {tag.tags}
                 </div>
             ))}
-        </div>   */}
+        </div> 
         <hr className="my-8" />     
         <div className='grid gap-10 sm:grid-cols-2 mx-10'>
             {blogs?.map(blog => {

@@ -2,35 +2,58 @@
     import Link from "next/link";
     import { format } from 'date-fns';
 import VisibleTagsButton from './[blogId]/components/VisibleTagsButton';
+import Search from '../components/Search';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
 
     export const metadata ={
         title: 'Blogs',
     }
-
+    
     
     export default async function Page(searchParams) {
+        let query = searchParams.searchParams.query
         const tag = searchParams.searchParams.tag;
         console.log(tag, '<=query on server side..')
-        const blogsData = await getAllBlogs(tag)
+        const blogsData = await getAllBlogs()
 
         const blogs = await blogsData.data.values
 
         let filteredBlogs = blogs;
 
+
+
         if (tag) { 
+            query = "";
             if (tag === 'All'){
-                filteredBlogs = blogs.filter(blog => {
-                    const blogTags = blog.tags || [];
-                    return blogTags;  
-                });
+                filteredBlogs = blogs;
             }
             else {
             filteredBlogs = blogs.filter(blog => {
                 const blogTags = blog.tags || [];
-                return blogTags.includes(tag);  
+                return blogTags.includes(tag); 
             });
         }
         }
+
+        if (query) {
+            filteredBlogs = blogs.filter(blog => {
+               return blog.title.toLowerCase().includes(query.toLowerCase());
+            })
+        }
+
+        // if (tag) {
+        //     if (query) {
+        //         filteredBlogs = blogs.filter(blog => {
+        //             console.log(tag, 'this tag')
+        //             const blogTags = blog.tags && blog.title.toLowerCase().includes(query.toLowerCase()) || []
+        //             console.log(blogTags, 'this blog tag')
+        //             return blogTags.includes(tag);
+        //         })
+        //     }
+        // }
+
 
         console.log(filteredBlogs, 'filtered blogs on server side')
 
@@ -46,7 +69,10 @@ import VisibleTagsButton from './[blogId]/components/VisibleTagsButton';
                 </p>
               </div>
             </div>  
+            <Search />
+            <Suspense fallback={<VisibleTagsLoader />}>
             <VisibleTagsButton />
+            </Suspense>
             <hr className="my-8" />     
             <div className='grid gap-10 sm:grid-cols-2 mx-10'>
                 {filteredBlogs.map(blog => {

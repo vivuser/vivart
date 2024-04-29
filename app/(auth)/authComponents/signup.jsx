@@ -7,37 +7,53 @@ import { validateRegisterForm } from "@/app/utilities/validations/authValidation
 import axios from "axios";
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
+import GitHubIcon from '@mui/icons-material/GitHub';
+import GoogleIcon from '@mui/icons-material/Google';
+import { signIn } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
+import options from "@/app/api/auth/[...nextauth]/options";
+import { toast } from "react-hot-toast"
+import { useHistory } from 'react-router-dom';
+import { useRouter } from "next/navigation";
+
 
 export default function RegisterForm() {
 
+    const [isGithubLoading, setIsGithubLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const modalIsOpen = useSelector(state => state.common.modal.isOpen)
+    const router = useRouter();
 
     const handleLogin = () => {
         setIsLogin(!isLogin)
     }
 
+    console.log(options, 'options...')
+
     async function submitLoginForm() {
-        try {
-            const response = await axios.post('http://localhost:3001/auth/login',{
-                email: email,
-                password: password
-            });
-            if (response.status === 200) {
-                console.log('Loggedin successfully')
-                console.log(response, 'res on login')
-                dispatch(loginSuccess(response.data.userId));
-            }
-        } catch (error) {
-            console.error('Error signing in:', error)
-        }
+            signIn('credentials', 
+                {email,
+                password,
+                 redirect: false})
+                 
+                .then((callback) => {
+                    if (callback?.error) {
+                        toast.error(callback.error)
+                    }
+                    if (callback?.ok && !callback?.error){
+                        toast.success('Logged in successfully!')
+                        router.push('/')
+                        
+                    }
+                })      
     }
 
     async function submitRegisterForm() {
@@ -63,6 +79,7 @@ export default function RegisterForm() {
 
             if (response.status === 201) {
                 console.log('registered successfully')
+                
                 dispatch(signupSucess(response.data.userId));
                 dispatch(openModal({ content: "SelectTags", data: {} }));
             }else
@@ -102,17 +119,22 @@ export default function RegisterForm() {
         <button className="bg-gray-300 p-2 mx-auto mb-1" onClick={() => submitRegisterForm()}>Submit</button>
         }
         {!isLogin && 
-        <>
         <h4 className="m-3 text-sm text-center font-sans">Already registered? <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1" onClick={() => handleLogin()}>Login</span></h4>
-        <h4 className="m-3 text-sm text-center font-sans">Login using <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1">Github</span></h4>
-        </>
         }
-        {isLogin && 
+
+{isLogin && 
         <>
         <h4 className="m-3 text-sm text-center font-sans">New here? <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1" onClick={() => handleLogin()}>Register</span></h4>
-        <h4 className="m-3 text-sm text-center font-sans">Register using <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1">Github</span></h4>
         </>
         }
+
+        
+        <hr className="my-1 mx-4" />  
+        <div className="flex flex-wrap mx-auto">
+        <h4 className="m-2 text-sm text-center font-sans">Login using <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1"><GitHubIcon className="text-slate-600" onClick={() => signIn('github', { callback: '/account' })}/></span></h4>
+        <h4 className="m-2 text-sm text-center font-sans"><span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1"><GoogleIcon className="text-slate-600"/></span></h4>
+        </div>
+
         </div>
     }
         </>

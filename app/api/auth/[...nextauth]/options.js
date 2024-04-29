@@ -11,19 +11,9 @@ const options = ({
             {
             name: "Credentials",
             credentials: {
-                email: {
-                    label: "Email: ",
-                    type: "text",
-                    placeholder: "your-user-name"
-                },
-                password: {
-                    label: "Password: ",
-                    type: "password",
-                    placeholder: "your-password"
-                }
-            }
-            ,
-            
+                email: {},
+                password: {}
+            },
             async authorize(credentials) {
                 console.log('trying to log', credentials)
 
@@ -46,21 +36,33 @@ const options = ({
 
     ],
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, session }) {
+            console.log("jwt callback", { token, user, session })
             if (user) {
-                token.accessToken = user.token
+                return {
+                ...token,
+                id: user.userId,
+                topics: [user?.topics]
+             }
             }
-            return token
+            return token;
         },
-        // async signIn(user) {
-        //     await createUserInDatabase(user);
-        //     return true;
-        // },
-        // async createUser(user) {
-        //     await createUserInDatabase(user);
-        //     return user;
-        // }
-        
+            async session ( {session, token, user }) {
+                console.log("session callback", { session, token, user });
+                let topics = [];
+                if (token && token.topics && Array.isArray(token.topics[0])) {
+                    topics = token.topics[0];
+                }
+                return {
+                    ...session,
+                    user: {
+                        ...session.user,
+                        id: token.id,
+                        topics: topics
+                    }
+                }
+                return session;
+            }
     }
 
 })
