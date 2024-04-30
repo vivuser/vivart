@@ -15,7 +15,8 @@ import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
     export default async function Page(searchParams) {
         let query = searchParams.searchParams.query
         const tag = searchParams.searchParams.tag;
-        console.log(tag, '<=query on server side..')
+        console.log(tag, '<=tag on server side..')
+        console.log(query, '<=query on server side..')
         const blogsData = await getAllBlogs()
 
         const blogs = await blogsData.data.values
@@ -24,8 +25,9 @@ import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
 
 
 
-        if (tag) { 
+        if (tag.length > 0) { 
             query = "";
+            console.log(query, 'setting query')
             if (tag === 'All'){
                 filteredBlogs = blogs;
             }
@@ -42,18 +44,6 @@ import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
                return blog.title.toLowerCase().includes(query.toLowerCase());
             })
         }
-
-        // if (tag) {
-        //     if (query) {
-        //         filteredBlogs = blogs.filter(blog => {
-        //             console.log(tag, 'this tag')
-        //             const blogTags = blog.tags && blog.title.toLowerCase().includes(query.toLowerCase()) || []
-        //             console.log(blogTags, 'this blog tag')
-        //             return blogTags.includes(tag);
-        //         })
-        //     }
-        // }
-
 
         console.log(filteredBlogs, 'filtered blogs on server side')
 

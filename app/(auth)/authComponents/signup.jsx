@@ -49,6 +49,7 @@ export default function RegisterForm() {
                         toast.error(callback.error)
                     }
                     if (callback?.ok && !callback?.error){
+                        console.log('09090909')
                         toast.success('Logged in successfully!')
                         router.push('/')
                         
@@ -131,7 +132,7 @@ export default function RegisterForm() {
         
         <hr className="my-1 mx-4" />  
         <div className="flex flex-wrap mx-auto">
-        <h4 className="m-2 text-sm text-center font-sans">Login using <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1"><GitHubIcon className="text-slate-600" onClick={() => signIn('github', { callback: '/account' })}/></span></h4>
+        <h4 className="m-2 text-sm text-center font-sans">Login using <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1"><GitHubIcon className="text-slate-600" onClick={() => signIn('github', { callbackUrl: '/' })}/></span></h4>
         <h4 className="m-2 text-sm text-center font-sans"><span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1"><GoogleIcon className="text-slate-600"/></span></h4>
         </div>
 

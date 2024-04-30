@@ -10,7 +10,7 @@ const Logout = () => {
     const router = useRouter()
 
     const handleLogout = async () => {
-        signOut()
+        signOut('github', { callbackUrl : '/'})
             console.log('signedOut,,,,..')
             .then(() => {
             console.log('pushing,,,,..')
