@@ -25,7 +25,7 @@ import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
 
 
 
-        if (tag.length > 0) { 
+        if (tag?.length > 0) { 
             query = "";
             console.log(query, 'setting query')
             if (tag === 'All'){

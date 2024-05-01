@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import getBlogsByUser from '@/app/redux/apis/userBlogsApi';
 import { getServerSession } from "next-auth";
 import options from "@/app/api/auth/[...nextauth]/options";
+import Search from "@/app/components/Search";
 
 export const metadata ={
     title: 'Blogs',
@@ -11,7 +12,9 @@ export const metadata ={
 
 export default async function Page(searchParams) {
 
-    const userId = searchParams.params.blogId
+    console.log(searchParams, ' searcg')
+
+    const userId = searchParams.params.userId
 
     const blogs = await getBlogsByUser(userId)
 
@@ -32,6 +35,7 @@ export default async function Page(searchParams) {
             <p className="text-xl text-muted-foreground">
               A blogs website built in nextJs
             </p>
+          <Search />
           </div>
         </div>    
          <div className="flex flex-wrap gap-1 mt-2">
