@@ -4,6 +4,9 @@ import getAllBlogs from "@/app/redux/apis/allBlogsApi"
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react"
 import VisibleTagsLoader from "./visibleTagsLoader";
+import getBlogsByUser from "@/app/redux/apis/userBlogsApi";
+import { useSession } from "next-auth/react";
+import options from "@/app/api/auth/[...nextauth]/options";
 
 export default function VisibleTagsButton () {
 
@@ -12,12 +15,24 @@ export default function VisibleTagsButton () {
     const [ filteredBlogs, setFilteredBlogs ] = useState([]); 
     const [isLoading, setIsLoading] = useState(true);
     const router =useRouter()
+    const user = useSession(options)
+    const userId = user?.data?.user?.id
+    console.log(userId, 'th')
 
    useEffect(() => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                const response = await getAllBlogs()
+                let response;
+                console.log(userId, 'userO')
+                if (userId) { 
+                    response = await getBlogsByUser(userId)
+                    console.log(response, 'user res blogs....')
+                }
+                else {
+                    response = await getAllBlogs() 
+                    console.log(response, 'all res blogs....')
+                }
                 setBlogsData(response)
                 setFilteredBlogs(response.data.values);
             } catch(error) {
@@ -27,9 +42,9 @@ export default function VisibleTagsButton () {
             }
         }
         fetchData()
-   }, [])
+   }, [userId])
 
-   const visibleTags = ['All', ...blogsData.data.tags?.filter(tag => tag && tag.trim() !== '')];
+   const visibleTags = ['All', ...(blogsData?.data?.tags || []).filter(tag => tag && tag.trim() !== '')];
    
    const handleFilterBlogs = (tag) => {
     let filtered;

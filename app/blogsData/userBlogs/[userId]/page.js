@@ -4,6 +4,7 @@ import getBlogsByUser from '@/app/redux/apis/userBlogsApi';
 import { getServerSession } from "next-auth";
 import options from "@/app/api/auth/[...nextauth]/options";
 import Search from "@/app/components/Search";
+import VisibleTagsButton from "../../[blogId]/components/VisibleTagsButton";
 
 export const metadata ={
     title: 'Blogs',
@@ -39,11 +40,12 @@ export default async function Page(searchParams) {
           </div>
         </div>    
          <div className="flex flex-wrap gap-1 mt-2">
-            { tags?.map((tag, index) => (
+            <VisibleTagsButton />
+            {/* { tags?.map((tag, index) => (
                 <div key={index} className="bg-gray-100 px-2 py-1 text-xs">
                     {tag.tags}
                 </div>
-            ))}
+            ))} */}
         </div> 
         <hr className="my-8" />     
         <div className='grid gap-10 sm:grid-cols-2 mx-10'>
