@@ -1,7 +1,6 @@
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from 'next-auth/providers/credentials';
 const options = ({
-
     providers: [
         GithubProvider({        
             clientId: process.env.GITHUB_ID,
@@ -17,7 +16,11 @@ const options = ({
             async authorize(credentials) {
                 console.log('trying to log', credentials)
 
-                
+                if(!credentials.email || !credentials.password) {
+                    throw new Error('Please enter an email and password')
+                }
+
+
                 const res = await fetch("http://localhost:3001/auth/login", {
                     method: 'POST',
                     body: JSON.stringify(credentials),
@@ -42,7 +45,7 @@ const options = ({
                 return {
                 ...token,
                 id: user.userId,
-                topics: [user?.topics]
+                topics: [user?.topics],
              }
             }
             return token;

@@ -106,9 +106,7 @@ const Write = () => {
                 })
             })
             
-            setTitle('')
-            setPostContent('')
-            setImageUrl('')
+            setIsSubmitted(true);
 
         } catch (error) {
             console.error('Error submitting the post', error)
@@ -123,6 +121,7 @@ const Write = () => {
             <button className='bg-slate-100 mx-auto p-2' onClick={handleSubmit}>Publish</button>
             </div>
             <div className='flex flex-col'>
+  
             <input type="text" placeholder="Title" className='mt-10 text-3xl border-none outline-none'
             onChange={(e) => setTitle(e.target.value)}/> 
             <input type="text" placeholder='Give your post a tag' className='outline-none p-2 text-yellow-900'

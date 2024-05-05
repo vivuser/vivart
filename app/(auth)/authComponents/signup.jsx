@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 export default function RegisterForm() {
 
     const [isGithubLoading, setIsGithubLoading] = useState(false);
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -71,6 +72,7 @@ export default function RegisterForm() {
             dispatch(signupStart());
 
             const response = await axios.post('http://localhost:3001/auth/signup', {
+                name: name,
                 email: email,
                 password: password,
                 confirmPassword: confirmPassword
@@ -104,6 +106,9 @@ export default function RegisterForm() {
         <h2 className="text-center font-semibold text-xl text-slate-700 font-sans m-2">Login</h2>
         :
         <h2 className="text-center font-semibold text-xl text-slate-700 font-sans m-2">Sign up</h2>
+        }
+        {!isLogin && 
+        <input placeholder="Name" type="name" onChange={e=>setName(e.target.value)} className="p-1 m-2 mt-2"/>
         }
         <input placeholder="Email" type="email" onChange={e=>setEmail(e.target.value)} className="p-1 m-2 mt-2"/>
         {emailError && <p className="text-red-500 pl-2">{emailError}</p>}
