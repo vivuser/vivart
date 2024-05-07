@@ -46,6 +46,7 @@ const options = ({
                 ...token,
                 id: user.userId,
                 topics: [user?.topics],
+                userposts: [user?.userposts]
              }
             }
             return token;
@@ -56,12 +57,17 @@ const options = ({
                 if (token && token.topics && Array.isArray(token.topics[0])) {
                     topics = token.topics[0];
                 }
+                let userposts = [];
+                if (token && token.userposts && Array.isArray(token.userposts[0])) {
+                    userposts = token.userposts[0];
+                }
                 return {
                     ...session,
                     user: {
                         ...session.user,
                         id: token.id,
-                        topics: topics
+                        topics: topics,
+                        userposts: userposts
                     }
                 }
                 return session;
