@@ -52,7 +52,8 @@ import { signIn } from "next-auth/react";
             console.log(password, 'this is password')
             await signIn('credentials', {
                 email,
-                password
+                password,
+                redirect: false
             });
         }
     
