@@ -6,13 +6,18 @@
     import { useRouter } from "next/navigation";
     import axios from "axios";
 import { useSelector } from "react-redux";
+import { signIn } from "next-auth/react";
 
     const Modal = () => {
         const [tags, setTags] =  useState([])
         const router = useRouter()
         const [selectedTags, setSelectedTags] = useState([]);
 
-        const userId = useSelector((state) => state.auth?.user)
+        const userId = useSelector((state) => state.auth?.user?.userId)
+        const email = useSelector((state) => state.auth?.user?.user?.email)
+        const password = useSelector((state) => state.auth?.user.user?.confirmPassword)
+
+        console.log(email, password, 'This is email and password')
 
         console.log(userId, 'getting user Id from redux')
 
@@ -41,6 +46,15 @@ import { useSelector } from "react-redux";
             }
 
         };
+
+        const handleSignIn = async () => {
+            console.log(email, 'this is email')
+            console.log(password, 'this is password')
+            await signIn('credentials', {
+                email,
+                password
+            });
+        }
     
         const handleUserSelections = async () => {
 
@@ -51,6 +65,13 @@ import { useSelector } from "react-redux";
             }
                 
             const response = await axios.put(`http://localhost:3001/blogs/topics/${userId}`, requestData )
+
+            if (response.status === 200) {
+                console.log('Inside checjking.....')
+                handleSignIn()
+            }
+
+            console.log('also signed in')
 
             router.push(`/blogsData/userBlogs/${userId}`)
             

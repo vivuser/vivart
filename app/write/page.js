@@ -91,7 +91,7 @@ const Write = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('http://localhost:3001/blogs', {
+            const response = await fetch(`http://localhost:3001/blogs/userposts/${authorId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -105,14 +105,15 @@ const Write = () => {
                     imageUrl: imageUrl
                 })
             })
-            
-            setIsSubmitted(true);
+                setTitle("");
+                setPostContent("");
+
+
 
         } catch (error) {
             console.error('Error submitting the post', error)
         }
     }
-
 
     return (
         <div className="max-w-6xl mx-auto m-10">
@@ -122,9 +123,9 @@ const Write = () => {
             </div>
             <div className='flex flex-col'>
   
-            <input type="text" placeholder="Title" className='mt-10 text-3xl border-none outline-none'
+            <input type="text" placeholder="Title" value={title} className='mt-10 text-3xl border-none outline-none'
             onChange={(e) => setTitle(e.target.value)}/> 
-            <input type="text" placeholder='Give your post a tag' className='outline-none p-2 text-yellow-900'
+            <input type="text" placeholder='Give your post a tag' value={postTags} className='outline-none p-2 text-yellow-900'
             onChange={(e) => setPostTags(e.target.value)}/>
 
             <div className='flex items-start mt-4'>

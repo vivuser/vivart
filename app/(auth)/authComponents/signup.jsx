@@ -83,7 +83,7 @@ export default function RegisterForm() {
             if (response.status === 201) {
                 console.log('registered successfully')
                 
-                dispatch(signupSucess(response.data.userId));
+                dispatch(signupSucess(response.data));
                 dispatch(openModal({ content: "SelectTags", data: {} }));
             }else
                 {
