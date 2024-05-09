@@ -35,6 +35,10 @@ export default function RegisterForm() {
 
     const handleLogin = () => {
         setIsLogin(!isLogin)
+        setName("")
+        setEmail("")
+        setPassword("")
+        setConfirmPassword("")
     }
 
     console.log(options, 'options...')
@@ -108,15 +112,15 @@ export default function RegisterForm() {
         <h2 className="text-center font-semibold text-xl text-slate-700 font-sans m-2">Sign up</h2>
         }
         {!isLogin && 
-        <input placeholder="Name" type="name" onChange={e=>setName(e.target.value)} className="p-1 m-2 mt-2"/>
+        <input placeholder="Name" type="name" value={name} onChange={e=>setName(e.target.value)} className="p-1 m-2 mt-2"/>
         }
-        <input placeholder="Email" type="email" onChange={e=>setEmail(e.target.value)} className="p-1 m-2 mt-2"/>
+        <input placeholder="Email" type="email" value={email} onChange={e=>setEmail(e.target.value)} className="p-1 m-2 mt-2"/>
         {emailError && <p className="text-red-500 pl-2">{emailError}</p>}
-        <input placeholder="Password" type="password" onChange={e=>setPassword(e.   target.value)} className="p-1 m-2"/>
+        <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.   target.value)} className="p-1 m-2"/>
         {passwordError && <p className="text-red-500 pl-2">{passwordError}</p>}
         { !isLogin && 
         <>
-        <input placeholder="Confirm Password" type="password" onChange={e=>setConfirmPassword(e.target.value)} className="p-1 m-2"/>
+        <input placeholder="Confirm Password" type="password" value={confirmPassword} onChange={e=>setConfirmPassword(e.target.value)} className="p-1 m-2"/>
         {confirmPasswordError && <p className="text-red-500 pl-2">{confirmPasswordError}</p>}
         </> }
         {isLogin ?
