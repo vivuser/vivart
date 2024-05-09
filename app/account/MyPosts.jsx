@@ -37,8 +37,13 @@ const MyPosts = () => {
             </Link>
           </div>
         ))}
+        {showUserPosts.length > 0 ?
           <button className='bg-gray-200 p-2 mx-auto'>View All</button>
-
+          :
+          <div className='flex justify-center'>
+          <p className='text-slate-600'>Write your <span className='underline underline-offset-2' ><Link href={'/write'}>first post</Link></span></p>
+          </div>
+        }
       </div>
       </> 
       )}
