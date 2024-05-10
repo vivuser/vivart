@@ -90,6 +90,7 @@ import { signIn } from "next-auth/react";
                         {tags.map((tag) => (
                             <div key={tag.id}>
                             <input 
+                                key={tag.id}
                                 type="checkbox"
                                 className="mr-2"
                                 onChange={() => handleTagClick(tag)}
