@@ -57,7 +57,7 @@ export default function RegisterForm() {
                         console.log('09090909')
                         toast.success('Logged in successfully!')
                         router.push('/')
-                        
+                        router.refresh()                       
                     }
                 })      
     }
@@ -86,9 +86,9 @@ export default function RegisterForm() {
 
             if (response.status === 201) {
                 console.log('registered successfully')
-                
                 dispatch(signupSucess(response.data));
                 dispatch(openModal({ content: "SelectTags", data: {} }));
+
             }else
                 {
                 throw new Error('Failed to register user');

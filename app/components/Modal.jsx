@@ -57,6 +57,7 @@ import { signIn } from "next-auth/react";
             });
         }
     
+
         const handleUserSelections = async () => {
 
         try {
@@ -73,7 +74,6 @@ import { signIn } from "next-auth/react";
             }
 
             console.log('also signed in')
-
             router.push(`/blogsData/userBlogs/${userId}`)
             
         } catch(error) {

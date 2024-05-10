@@ -106,6 +106,7 @@
                     })
                 })
                     setTitle("");
+                    setPostTags("")
                     setPostContent("");
 
 
@@ -145,11 +146,12 @@
                 onChange={(e) => setPostContent(e.target.value)}/> */}
 
                 <ReactQuill
+                    className='max-w-6xl'
                     modules={modules}
                     theme="snow"
                     value={postContent}
                     onChange={setPostContent}
-                    placeholder='Tell your story'
+                    placeholder='Content here...'
                     style={{ height: '400px'}}
                     imageResize={true}
                 />
