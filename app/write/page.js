@@ -7,15 +7,14 @@
     import ControlPointIcon from '@mui/icons-material/ControlPoint';
     import DesignServicesIcon from '@mui/icons-material/DesignServices';
     import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-    import ReactQuill from 'react-quill';
-    import 'react-quill/dist/quill.snow.css';
+    // import ReactQuill from 'react-quill';
+    // import 'react-quill/dist/quill.snow.css';
     import { useSession } from 'next-auth/react';
     import options from '../api/auth/[...nextauth]/options';
 
-    // const QuillNoSSRWrapper = dynamic(import('react-quill'), {
-    //     ssr: false,
-    //     loading: () => <p>Loading ...</p>,
-    //   })
+    const ReactQuill = dynamic(() => import('react-quill'), {
+        ssr: false
+    })
 
     const Write = () => {
         const [open, setOpen ] = useState(false);
@@ -153,7 +152,6 @@
                     onChange={setPostContent}
                     placeholder='Content here...'
                     style={{ height: '400px'}}
-                    imageResize={true}
                 />
                 </div>
             </div>

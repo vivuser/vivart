@@ -88,7 +88,7 @@ import { signIn } from "next-auth/react";
                     <h2 className="text-lg text-muted-foreground">Choose your preferences</h2>
                     <div className="grid grid-cols-2 gap-4">
                         {tags.map((tag) => (
-                            <div>
+                            <div key={tag.id}>
                             <input 
                                 type="checkbox"
                                 className="mr-2"
