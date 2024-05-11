@@ -1,8 +1,10 @@
-       
+     import axios from "axios"
+     
+
     export default async function getSingleBlog(blogId)  {
 
         try {
-            const res = await fetch(`http://localhost:3001/blogs/${blogId}`)
+            const res = await axios.get(`http://localhost:3001/blogs/${blogId}`)
             if (!res.ok) throw new Error('failed to fetch single blog data')
 
             return res.json()
