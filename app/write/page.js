@@ -8,7 +8,7 @@
     import DesignServicesIcon from '@mui/icons-material/DesignServices';
     import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
     // import ReactQuill from 'react-quill';
-    // import 'react-quill/dist/quill.snow.css';
+    import 'react-quill/dist/quill.snow.css';
     import { useSession } from 'next-auth/react';
     import options from '../api/auth/[...nextauth]/options';
 
