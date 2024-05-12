@@ -75,7 +75,7 @@ export default function RegisterForm() {
 
             dispatch(signupStart());
 
-            const response = await axios.post('http://localhost:3001/auth/signup', {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup`, {
                 name: name,
                 email: email,
                 password: password,

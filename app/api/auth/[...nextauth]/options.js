@@ -21,7 +21,7 @@ const options = ({
                 }
 
 
-                const res = await fetch("http://localhost:3001/auth/login", {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
                     method: 'POST',
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" }
