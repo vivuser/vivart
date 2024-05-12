@@ -80,7 +80,7 @@
                 const formData = new FormData();    
                 formData.append('file', file);
 
-                const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/image`, formData);
+                const response = await axios.post('blogs/image', formData);
                 const uploadedImageUrl = response.data.imageUrl;
                 setImageUrl(uploadedImageUrl);
             } catch (error) {
@@ -90,7 +90,7 @@
 
         const handleSubmit = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/userposts/${authorId}`, {
+                const response = await fetch(`blogs/userposts/${authorId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

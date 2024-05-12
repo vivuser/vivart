@@ -66,7 +66,7 @@ import { signIn } from "next-auth/react";
                 selectedTopics: selectedTags
             }
                 
-            const response = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/topics/${userId}`, requestData )
+            const response = await axios.put(`blogs/topics/${userId}`, requestData )
 
             if (response.status === 200) {
                 console.log('Inside checjking.....')

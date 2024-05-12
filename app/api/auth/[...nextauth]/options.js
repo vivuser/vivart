@@ -21,7 +21,7 @@ const options = ({
                 }
 
 
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
+                const res = await fetch('auth/login', {
                     method: 'POST',
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" }
