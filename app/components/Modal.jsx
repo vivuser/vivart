@@ -20,7 +20,6 @@ import { signIn } from "next-auth/react";
         console.log(email, password, 'This is email and password')
 
         console.log(userId, 'getting user Id from redux')
-        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 
         useEffect(() => {
             const fetchData = async () => {
@@ -67,7 +66,7 @@ import { signIn } from "next-auth/react";
                 selectedTopics: selectedTags
             }
                 
-            const response = await axios.put(`blogs/topics/${userId}`, requestData )
+            const response = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/topics/${userId}`, requestData )
 
             if (response.status === 200) {
                 console.log('Inside checjking.....')
@@ -75,7 +74,7 @@ import { signIn } from "next-auth/react";
             }
 
             console.log('also signed in')
-            router.push(`${backendUrl}/blogsData/userBlogs/${userId}`)
+            router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogsData/userBlogs/${userId}`)
             
         } catch(error) {
                 console.error("Error sending selected topics: ", error);
