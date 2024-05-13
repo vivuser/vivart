@@ -74,7 +74,7 @@ import { signIn } from "next-auth/react";
             }
 
             console.log('also signed in')
-            router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogsData/userBlogs/${userId}`)
+            router.push(`/blogsData/userBlogs/${userId}`)
             
         } catch(error) {
                 console.error("Error sending selected topics: ", error);
