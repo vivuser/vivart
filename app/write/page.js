@@ -90,7 +90,7 @@
 
         const handleSubmit = async () => {
             try {
-                const response = await fetch(`blogs/userposts/${authorId}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/userposts/${authorId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
