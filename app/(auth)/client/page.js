@@ -7,7 +7,7 @@ export default function ClientPage () {
     const { data: session } = useSession({
         required: true,
         onUnauthenticated() {
-            redirect('/api/auth/signin?callbackUrl=/client')
+            redirect(`${process.env.AUTH_URL}/api/auth/signin?callbackUrl=/client`)
         }
     })
 

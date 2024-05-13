@@ -6,7 +6,7 @@ export default async function ServerPage(){
     const session = await getServerSession(options)
 
     if (!session) {
-        redirect('/api/auth/signin?callbackUrl=/server')
+        redirect(`${process.env.AUTH_URL}/api/auth/signin?callbackUrl=/server`)
     }
 
     return (
