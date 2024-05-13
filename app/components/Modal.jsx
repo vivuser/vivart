@@ -20,6 +20,7 @@ import { signIn } from "next-auth/react";
         console.log(email, password, 'This is email and password')
 
         console.log(userId, 'getting user Id from redux')
+        const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 
         useEffect(() => {
             const fetchData = async () => {
@@ -74,7 +75,7 @@ import { signIn } from "next-auth/react";
             }
 
             console.log('also signed in')
-            router.push(`/blogsData/userBlogs/${userId}`)
+            router.push(`${backendUrl}/blogsData/userBlogs/${userId}`)
             
         } catch(error) {
                 console.error("Error sending selected topics: ", error);
