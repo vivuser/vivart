@@ -4,18 +4,18 @@ import GridExample from "./components/AgGridTable";
 import LeftMainComponent from "./components/LeftMainComponent";
 import RightMainComponent from "./components/RightMainComponent";
 import Link from "next/link";
+import Mostviewed from "./components/Mostviewed";
 
 export default function Home() {
   return (
     <section>
   <h1>Hello, Next.js!</h1>
-  <section className="flex flex-row space-x-10 m-20">
+  <section className="flex flex-col space-x-10 m-20">
   <Suspense fallback={<p>Loading feed ...</p>}>
-    <LeftMainComponent />
+    <Mostviewed />
   </Suspense>
-  <Link href="/blogsData">Blogs</Link>
+  <Link href="/blogsData" className="text-slate-600 underline underline-offset-2">Visit all blogs</Link>
   <Suspense fallback={<p>Loading User Selections...</p>}>
-  <RightMainComponent />
   </Suspense>
   </section>
 

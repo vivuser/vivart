@@ -15,8 +15,8 @@ const MainNavbar = async () => {
         <div className="m-4">
             <ul className="flex flex-wrap mx-10">
                 <li className="mx-10"><Link href="/">Home</Link></li>
-                <li className="mx-10"><Link href="/server">Server Login</Link></li>
-                <li className="mx-10"><Link href="/contact">Contact</Link></li>
+                {/* <li className="mx-10"><Link href="/server">Server Login</Link></li> */}
+                {/* <li className="mx-10"><Link href="/contact">Contact</Link></li> */}
         
             {  
             session && session?.user.topics.length > 0 ?
@@ -29,12 +29,13 @@ const MainNavbar = async () => {
                 <li className="mx-10"><Link href="/account">{session?.user?.name?.split(' ')[0] || session?.user?.email}</Link></li>
                         :
                         <>
-                <li className="mx-10"><Link href="/client">Login using OAuth</Link></li>
+                {/* <li className="mx-10"><Link href="/client">Login using OAuth</Link></li> */}
                 <li className="mx-10"><Link href="/login">Login</Link></li>
                 </>
             }
+            {  session &&
                 <li className="mx-10"><Link href="/write">Write</Link></li>
-
+            }
             </ul>
         </div>
     )
