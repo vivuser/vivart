@@ -14,8 +14,8 @@ const MainNavbar = async ( {showNavbar}) => {
     return (
         <div>
             {showNavbar && <p>Hello</p>}
-            <ul className="flex flex-wrap mx-10 hidden md:block md:m-4">
-                <li className="mx-10"><Link href="/">Home</Link></li>
+            <ul className="hidden md:flex m-2">
+                <li className="mx-6"><Link href="/">Home</Link></li>
                 {/* <li className="mx-10"><Link href="/server">Server Login</Link></li> */}
                 {/* <li className="mx-10"><Link href="/contact">Contact</Link></li> */}
         
