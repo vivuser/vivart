@@ -1,8 +1,5 @@
 import Image from "next/image";
 import { Suspense } from "react";
-import GridExample from "./components/AgGridTable";
-import LeftMainComponent from "./components/LeftMainComponent";
-import RightMainComponent from "./components/RightMainComponent";
 import Link from "next/link";
 import Mostviewed from "./components/Mostviewed";
 
@@ -10,7 +7,7 @@ export default function Home() {
   return (
     <section>
   <h1>Hello, Next.js!</h1>
-  <section className="flex flex-col space-x-10 m-20">
+  <section className="flex flex-col space-x-10 m-10">
   <Suspense fallback={<p>Loading feed ...</p>}>
     <Mostviewed />
   </Suspense>

@@ -1,4 +1,6 @@
+import Link from "next/link";
 import getAllBlogs from "../redux/apis/allBlogsApi"
+import { format } from "date-fns";
 
 const Mostviewed = async () => {
 
@@ -12,22 +14,30 @@ const Mostviewed = async () => {
 
     return (
         <div>
-            <p className="font-2xl">Most viewed posts</p>
-            <div className="flex flex-row">
+            <p className="text-muted-foreground text-2xl">Most viewed posts</p>
+            <div className="flex flex-col md:flex-row" >
             {sortedPosts.map((blog) => {
                 return (    
                     <div key={blog.id}>
+                        <Link href={`blogsData/${blog._id}`}>
                         <div className="bg-gray-100 m-4 p-4">
-                            <div className="flex flex-col">
+                        <div className="flex flex-col">
                             <div className="mb-2"> 
-                    <h2 className="text-lg font-semibold">{blog.title}</h2> 
-                </div>
-                <div>
-                    <p className="text-gray-700">{blog.content}</p>
-                </div>
+                          <h2 className="text-lg font-semibold">{blog.title}</h2> 
+                            <hr/>
+                            <br/>
+                            </div>
+                            <span className='text-sm' 
+                            dangerouslySetInnerHTML={{__html: blog.content}}>
+                            </span>
+                            <br/>
+                            <span className='text-xs'>
+                            {format(new Date(blog.createdAt),'MMMM dd yyyy')}
+                            </span>
                             </div>
                         </div>
-                     </div>)
+                        </Link>
+                        </div>)
             } )}
             </div>
         </div>

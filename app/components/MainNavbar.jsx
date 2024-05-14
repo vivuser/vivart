@@ -3,17 +3,18 @@ import { getServerSession } from "next-auth/next"
 import options from "../api/auth/[...nextauth]/options";
 import Logout from "./Logout";
 import AllBlogs from "./AllBlogs";
+import Hamburger from "./Hamburger";
 
-const MainNavbar = async () => {
+const MainNavbar = async ( {showNavbar}) => {
     const session = await getServerSession(options)
 
     console.log(session, 'session on server')
-
-   
+    console.log(showNavbar, 'showNavbar state')
 
     return (
-        <div className="m-4">
-            <ul className="flex flex-wrap mx-10">
+        <div>
+            {showNavbar && <p>Hello</p>}
+            <ul className="flex flex-wrap mx-10 hidden md:block md:m-4">
                 <li className="mx-10"><Link href="/">Home</Link></li>
                 {/* <li className="mx-10"><Link href="/server">Server Login</Link></li> */}
                 {/* <li className="mx-10"><Link href="/contact">Contact</Link></li> */}
