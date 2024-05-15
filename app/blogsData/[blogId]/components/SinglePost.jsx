@@ -5,6 +5,7 @@ export default async function UserPosts({ promise }) {
     const posts = await promise;
 
     console.log(posts, 'commtss posts')
+    
 
     const content = posts.map(post => {
         // Helper function to extract content inside <pre> tags

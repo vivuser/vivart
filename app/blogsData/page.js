@@ -47,6 +47,10 @@ import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
 
         console.log(filteredBlogs, 'filtered blogs on server side')
 
+        const truncateContent = (content, maxLength) => {
+            return content.length > maxLength ? content.slice(0, maxLength - 3) + '...' : content;
+          }
+
         const content = (
             <div className="container max-w-4xl py-6 lg:py-10 mx-auto">
             <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
@@ -76,7 +80,7 @@ import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
                                     <hr/>
                                     <br/>
                                     <span className='text-sm' 
-                                    dangerouslySetInnerHTML={{__html: blog.content}}>
+                                    dangerouslySetInnerHTML={{__html: truncateContent(blog.content, 250)}}>
                                     </span>
                                     <br/>
                                     <span className='text-xs'>
