@@ -46,7 +46,8 @@
                     ...token,
                     id: user.userId,
                     topics: [user?.topics],
-                    userposts: [user?.userposts]
+                    userposts: [user?.userposts],
+                    savedPosts: [user?.savedPosts]
                 }
                 }
                 return token;
@@ -61,13 +62,18 @@
                     if (token && token.userposts && Array.isArray(token.userposts[0])) {
                         userposts = token.userposts[0];
                     }
+                    let savedPosts = [];
+                    if (token && token.savedPosts && Array.isArray(token.savedPosts[0])){
+                        savedPosts = token.savedPosts[0];
+                    }
                     return {
                         ...session,
                         user: {
                             ...session.user,
                             id: token.id,
                             topics: topics,
-                            userposts: userposts
+                            userposts: userposts,
+                            savedPosts: savedPosts
                         }
                     }
                     return session;

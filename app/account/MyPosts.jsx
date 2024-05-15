@@ -23,7 +23,7 @@
 
 
     return (<>
-        <button className='bg-gray-200 p-1'
+        <button className='bg-gray-200 p-1 m-2'
         onClick={handleShowPosts}>
       My posts
         </button>
@@ -31,10 +31,13 @@
         <>
         <div className="flex flex-col">
           {session?.user?.userposts.map((post) => (
-            <div key={post._id} className='bg-slate-100 p-2 m-2'>
+            <div key={post._id} className='bg-slate-100 p-3 m-3'>
             <Link href={`/blogsData/${post._id}`}>
               <h2 className='font-medium text-2xl'>{post.title}</h2>
-              <p>{truncateContent(post.content, 100)}</p>
+              <hr/>
+              <span className='text-sm mt-1' 
+              dangerouslySetInnerHTML={{__html: truncateContent(post.content,100)}}>
+              </span>
               </Link>
             </div>
           ))}

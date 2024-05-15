@@ -4,14 +4,31 @@ import BookIcon from '@mui/icons-material/Book';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import options from '@/app/api/auth/[...nextauth]/options';
+import { useParams } from 'next/navigation';
 
 const BookIconComp =()=> {
     const [savePost, setSavePost] = useState(false)
     const { data: isUser } = useSession(options);
-    console.log(isUser?.data, 'hainn')
+    console.log(isUser, 'hainn')
+    const blogParams = useParams();
+    const postId = blogParams.blogId;
+    console.log(postId, 'this is post id')
 
-    const handleSavePosts = () => {
-        setSavePost(!savePost)
+    const handleSavePosts = async () => {
+        try {
+        setSavePost(!savePost)  
+
+        if (!isUser) return;
+        
+        await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/savedPosts/${isUser.user.id}/${postId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        } catch (error) {
+            console.error('Error while updating, please try later', error);
+        }
     }
 
     if (!isUser) {
