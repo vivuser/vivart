@@ -13,7 +13,6 @@ const MainNavbar = async ( {showNavbar}) => {
 
     return (
         <div>
-            {showNavbar && <p>Hello</p>}
             <ul className="hidden md:flex m-2">
                 <li className="mx-6"><Link href="/">Home</Link></li>
                 {/* <li className="mx-10"><Link href="/server">Server Login</Link></li> */}

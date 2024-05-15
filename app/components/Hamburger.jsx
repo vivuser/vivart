@@ -2,6 +2,7 @@
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
+import Sidebar from './Sidebar';
 
 const Hamburger = ({ showNavbar, handleToggleNavbar}) => {
 
@@ -10,8 +11,10 @@ const Hamburger = ({ showNavbar, handleToggleNavbar}) => {
 
     return (
         <>
-        {showNavbar ? (
+        {showNavbar ? (<>
             <CloseIcon onClick={handleToggleNavbar}/>
+            <Sidebar />
+            </>
         ): (
             <MenuOpenIcon onClick={handleToggleNavbar}/>
         )}
