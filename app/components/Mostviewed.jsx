@@ -9,8 +9,6 @@ const Mostviewed = async () => {
     const allSortedPosts =  topBlogs?.slice().sort((a,b) => b.views - a.views);
     const sortedPosts = allSortedPosts?.splice(0,6);
 
-    console.log(topBlogs , 'top posts')
-    console.log(sortedPosts , 'sorted posts')
 
     const truncateContent = (content, maxLength) => {
         return content.length > maxLength ? content.slice(0, maxLength - 3) + '...' : content;
@@ -19,7 +17,7 @@ const Mostviewed = async () => {
     return (
         <div>
             <p className="text-muted-foreground text-2xl">Most viewed posts</p>
-            <div className="flex flex-col md:flex-row" >
+            <div className="flex flex-col items-center md:flex-row" >
             {sortedPosts.map((blog) => {
                 return (    
                     <div key={blog.id} style={{ width: '400px', height:'250px', margin:'6px'}}>

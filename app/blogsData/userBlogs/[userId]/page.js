@@ -19,7 +19,6 @@ export default async function Page(searchParams) {
 
     const blogs = await getBlogsByUser(userId)
 
-    console.log(blogs, 'blogsData')
 
     const tags = await blogs
     console.log(tags, 'tagss')

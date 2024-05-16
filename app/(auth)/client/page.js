@@ -11,7 +11,6 @@ export default function ClientPage () {
         }
     })
 
-    console.log(session, 'session..')
 
     return (
             <section className="flex flex-col gap-6">

@@ -9,7 +9,6 @@ export async function UserPostMeta({ promise }) {
         }
     });
 
-    console.log(content, 'meta......')
 
     return content;
 }

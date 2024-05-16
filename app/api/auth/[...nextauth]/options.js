@@ -50,7 +50,7 @@
                     savedPosts: [user?.savedPosts]
                 }
                 }
-                else if (token?.name === 'vivek-techindustan' && token?.sub){
+                else if (token?.sub){
                     console.log('inside with info' )
                     return {
                         ...token,

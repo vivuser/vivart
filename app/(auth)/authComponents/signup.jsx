@@ -41,7 +41,6 @@ export default function RegisterForm() {
         setConfirmPassword("")
     }
 
-    console.log(options, 'options...')
 
     async function submitLoginForm() {
             signIn('credentials', 

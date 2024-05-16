@@ -8,8 +8,6 @@ import Hamburger from "./Hamburger";
 const MainNavbar = async ( {showNavbar}) => {
     const session = await getServerSession(options)
 
-    console.log(session, 'session on server')
-    console.log(showNavbar, 'showNavbar state')
 
     return (
         <div>
