@@ -50,6 +50,13 @@
                     savedPosts: [user?.savedPosts]
                 }
                 }
+                else if (token?.name === 'vivek-techindustan' && token?.sub){
+                    console.log('inside with info' )
+                    return {
+                        ...token,
+                        id: token.sub,
+                      };
+                    }
                 return token;
             },
                 async session ( {session, token, user }) {

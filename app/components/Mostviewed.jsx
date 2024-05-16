@@ -12,23 +12,27 @@ const Mostviewed = async () => {
     console.log(topBlogs , 'top posts')
     console.log(sortedPosts , 'sorted posts')
 
+    const truncateContent = (content, maxLength) => {
+        return content.length > maxLength ? content.slice(0, maxLength - 3) + '...' : content;
+      }
+
     return (
         <div>
             <p className="text-muted-foreground text-2xl">Most viewed posts</p>
             <div className="flex flex-col md:flex-row" >
             {sortedPosts.map((blog) => {
                 return (    
-                    <div key={blog.id}>
+                    <div key={blog.id} style={{ width: '400px', height:'250px', margin:'6px'}}>
                         <Link href={`blogsData/${blog._id}`}>
-                        <div className="bg-gray-100 m-4 p-4">
+                        <div className="bg-gray-100 m-4 p-4" style={{ height: '100%'}}>
                         <div className="flex flex-col">
                             <div className="mb-2"> 
                           <h2 className="text-lg font-semibold">{blog.title}</h2> 
                             <hr/>
                             <br/>
                             </div>
-                            <span className='text-sm' 
-                            dangerouslySetInnerHTML={{__html: blog.content}}>
+                            <span className='text-sm'
+                            dangerouslySetInnerHTML={{__html: truncateContent(blog.content,200)}}>
                             </span>
                             <br/>
                             <span className='text-xs'>
