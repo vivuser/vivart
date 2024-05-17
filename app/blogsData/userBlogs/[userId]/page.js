@@ -25,6 +25,10 @@ export default async function Page(searchParams) {
 
     // const visibleTags = tags?.filter(tag => tag && tag?.trim() !== '');
 
+    const truncateContent = (content, maxLength) => {
+        return content.length > maxLength ? content.slice(0, maxLength - 3) + '...' : content;
+      }
+
     const content = (
         <div className="container max-w-4xl py-6 lg:py-10 mx-auto">
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
@@ -58,8 +62,8 @@ export default async function Page(searchParams) {
                                 {blog.title}
                                 <hr/>
                                 <br/>
-                                <span className='text-sm' 
-                                dangerouslySetInnerHTML={{__html: blog.content}}>
+                                <span className='text-sm m-2' 
+                                dangerouslySetInnerHTML={{__html: truncateContent(blog.content, 250)}}>
                                 </span>
                                 <br/>
                                 <span className='text-xs'>

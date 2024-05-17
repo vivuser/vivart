@@ -1,8 +1,11 @@
     import GithubProvider from "next-auth/providers/github";
     import CredentialsProvider from 'next-auth/providers/credentials';
+
+
     const options = ({
         providers: [
-            GithubProvider({        
+            GithubProvider({     
+                name: "Github",   
                 clientId: process.env.GITHUB_ID,
                 clientSecret: process.env.GITHUB_SECRET,
             }),
@@ -13,6 +16,7 @@
                     email: {},
                     password: {}
                 },
+          
                 async authorize(credentials) {
                     console.log('trying to log', credentials)
 
@@ -52,9 +56,17 @@
                 }
                 else if (token?.sub){
                     console.log('inside with info' )
+                    console.log('in...  ')
+                    const resp = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/account/github`, {
+                        method: 'POST',
+                        body: JSON.stringify(token),
+                        headers: { "Content-Type": "application/json" }
+                    })
+                    const userGit = await resp.json() 
+                    console.log(userGit, ' this is the resp from backend')
                     return {
                         ...token,
-                        id: token.sub,
+                        id: userGit.id  ,
                       };
                     }
                 return token;

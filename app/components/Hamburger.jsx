@@ -13,10 +13,10 @@ const Hamburger = ({ showNavbar, handleToggleNavbar}) => {
         <>
         {showNavbar ? (<>
             <CloseIcon onClick={handleToggleNavbar}/>
-            <Sidebar />
+            <Sidebar isOpen={showNavbar} onClose={handleToggleNavbar}/>
             </>
         ): (
-            <MenuOpenIcon onClick={handleToggleNavbar}/>
+            <MenuOpenIcon onClick={handleToggleNavbar} className=' m-2 md:hidden'/>
         )}
         </>
     )
