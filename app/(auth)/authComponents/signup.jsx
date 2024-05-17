@@ -24,6 +24,7 @@ export default function RegisterForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [nameError, setNameError] = useState("")
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -66,8 +67,9 @@ export default function RegisterForm() {
     async function submitRegisterForm() {
         try{
 
-            const validation = validateRegisterForm(email, password, confirmPassword)
+            const validation = validateRegisterForm(name, email, password, confirmPassword)
             if (!validation.isValid) {
+                setNameError(validation.errors.name || "")
                 setEmailError(validation.errors.email || "");
                 setPasswordError(validation.errors.password || "");
                 setConfirmPasswordError(validation.errors.confirmPassword || "");
@@ -75,7 +77,7 @@ export default function RegisterForm() {
             }
 
             dispatch(signupStart());
-
+            setIsLoading(true)
             const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup`, {
                 name: name,
                 email: email,
@@ -87,6 +89,7 @@ export default function RegisterForm() {
 
             if (response.status === 201) {
                 console.log('registered successfully')
+                setIsLoading(false)
                 dispatch(signupSucess(response.data));
                 dispatch(openModal({ content: "SelectTags", data: {} }));
 
@@ -113,7 +116,10 @@ export default function RegisterForm() {
         <h2 className="text-center font-semibold text-xl text-slate-700 font-sans m-2">Sign up</h2>
         }
         {!isLogin && 
+        <>
         <input placeholder="Name" type="name" value={name} onChange={e=>setName(e.target.value)} className="p-1 m-2 mt-2"/>
+        {nameError && <p className="text-red-500 pl-2">{nameError}</p>}
+        </>
         }
         <input placeholder="Email" type="email" value={email} onChange={e=>setEmail(e.target.value)} className="p-1 m-2 mt-2"/>
         {emailError && <p className="text-red-500 pl-2">{emailError}</p>}
@@ -127,7 +133,7 @@ export default function RegisterForm() {
         {isLogin ?
         <button className={`${isLoading ? 'bg-gray-200 text-gray-400' : 'bg-gray-300'} p-2 mx-auto mb-1`} onClick={() => submitLoginForm()}>Submit</button>
         :
-        <button className="bg-gray-300 p-2 mx-auto mb-1" onClick={() => submitRegisterForm()}>Submit</button>
+        <button className={`${isLoading ? 'bg-gray-200 text-gray-400' : 'bg-gray-300'} p-2 mx-auto mb-1`}  onClick={() => submitRegisterForm()}>Submit</button>
         }
         {!isLogin && 
         <h4 className="m-3 text-sm text-center font-sans">Already registered? <span className="underline underline-offset-2 text-slate-700 cursor-pointer ml-1" onClick={() => handleLogin()}>Login</span></h4>

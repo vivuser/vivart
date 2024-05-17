@@ -11,6 +11,8 @@
     import 'react-quill/dist/quill.snow.css';
     import { useSession } from 'next-auth/react';
     import options from '../api/auth/[...nextauth]/options';
+import { openSnackbar } from '../redux/slices/commonSlice';
+import { useRouter } from 'next/navigation';
 
     const ReactQuill = dynamic(() => import('react-quill'), {
         ssr: false
@@ -22,6 +24,7 @@
         const [imageUrl, setImageUrl] = useState(null);
         const [title, setTitle] = useState('')
         const [postTags, setPostTags] = useState('')
+        const [isLoading, setIsLoading] = useState(false);
         const dispatch = useDispatch()
         const userData = useSelector((state) => state.auth);
         console.log(userData, 'userData')
@@ -29,6 +32,7 @@
         console.log(data, ' name..')
         const author = data?.user?.name
         const authorId = data?.user?.id
+        const router = useRouter();
 
         const modules = {
             toolbar: [
@@ -89,6 +93,7 @@
         }
 
         const handleSubmit = async () => {
+            setIsLoading(true);
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/userposts/${authorId}`, {
                     method: 'POST',
@@ -104,11 +109,19 @@
                         imageUrl: imageUrl
                     })
                 })
+
+                if (response.ok) {
+                    dispatch(
+                        openSnackbar({
+                            content: 'Post created successfuly',
+                            color: 'success'
+                        })
+                    )
                     setTitle("");
                     setPostTags("")
                     setPostContent("");
-
-
+                    router.push('/account')
+                }
 
             } catch (error) {
                 console.error('Error submitting the post', error)
@@ -119,7 +132,7 @@
             <div className="max-w-6xl mx-auto m-10">
                 <div className='flex flex-wrap justify-between'>
                 <h2 className="text-center text-3xl text-slate-700">Write <span className='text-orange-200'><DesignServicesIcon fontSize='large'/></span></h2>
-                <button className='bg-slate-100 mx-auto p-2' onClick={handleSubmit}>Publish</button>
+                <button className={`${isLoading ? 'bg-slate-100' : 'bg-slate-200'} mx-auto p-2`} onClick={handleSubmit}>Publish</button>
                 </div>
                 <div className='flex flex-col'>
     

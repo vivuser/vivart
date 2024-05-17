@@ -1,7 +1,11 @@
 import { isEmpty } from "lodash";
 
-export function validateRegisterForm(email, password, confirmPassword) {
+export function validateRegisterForm(name, email, password, confirmPassword) {
     let errors = {};
+
+    if (!name) {
+        errors.name = "Name is required";
+    }
 
     if  (!email) {
         errors.email = "Email is required";

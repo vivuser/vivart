@@ -12,7 +12,7 @@ import { signIn } from "next-auth/react";
         const [tags, setTags] =  useState([])
         const router = useRouter()
         const [selectedTags, setSelectedTags] = useState([]);
-
+        const [isLoading, setIsLoading] = useState(false);
         const userId = useSelector((state) => state.auth?.user?.userId)
         const email = useSelector((state) => state.auth?.user?.user?.email)
         const password = useSelector((state) => state.auth?.user.user?.confirmPassword)
@@ -59,7 +59,7 @@ import { signIn } from "next-auth/react";
     
 
         const handleUserSelections = async () => {
-
+            setIsLoading(true);
         try {
 
             const requestData = {
@@ -74,6 +74,7 @@ import { signIn } from "next-auth/react";
             }
 
             console.log('also signed in')
+            setIsLoading(false);
             router.push(`/blogsData/userBlogs/${userId}`)
             
         } catch(error) {
@@ -105,7 +106,7 @@ import { signIn } from "next-auth/react";
                             </div>
                         ))}
                         <span className="underline underline-offset-4 text-slate-500 cursor-pointer" onClick={()=>router.push('/blogsData')}>skip</span>
-                        <span className="underline underline-offset-4 text-slate-500 cursor-pointer" onClick={handleUserSelections}>next</span>
+                        <span className={`underline underline-offset-4 ${isLoading ? 'text-slate-300' : 'text-slate-500'} cursor-pointer`} onClick={handleUserSelections}>next</span>
                     </div>
                 </div>
             </div>
