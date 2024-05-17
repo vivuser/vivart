@@ -28,6 +28,7 @@ export default function RegisterForm() {
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
     const [isLogin, setIsLogin] = useState(true);
+    const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const modalIsOpen = useSelector(state => state.common.modal.isOpen)
@@ -43,6 +44,7 @@ export default function RegisterForm() {
 
 
     async function submitLoginForm() {
+            setIsLoading(true);
             signIn('credentials', 
                 {email,
                 password,
@@ -53,7 +55,7 @@ export default function RegisterForm() {
                         toast.error(callback.error)
                     }
                     if (callback?.ok && !callback?.error){
-                        console.log('09090909')
+                        setIsLoading(false)
                         toast.success('Logged in successfully!')
                         router.push('/')
                         router.refresh()                       
@@ -123,7 +125,7 @@ export default function RegisterForm() {
         {confirmPasswordError && <p className="text-red-500 pl-2">{confirmPasswordError}</p>}
         </> }
         {isLogin ?
-        <button className="bg-gray-300 p-2 mx-auto mb-1" onClick={() => submitLoginForm()}>Submit</button>
+        <button className={`${isLoading ? 'bg-gray-200 text-gray-400' : 'bg-gray-300'} p-2 mx-auto mb-1`} onClick={() => submitLoginForm()}>Submit</button>
         :
         <button className="bg-gray-300 p-2 mx-auto mb-1" onClick={() => submitRegisterForm()}>Submit</button>
         }

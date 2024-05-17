@@ -3,22 +3,22 @@
 import { useDispatch} from "react-redux";
 import { logout } from "@/app/redux/slices/authSlice";
 import { signOut } from "next-auth/react";
-import { useRouter} from "next/navigation";
+import { redirect, useRouter} from "next/navigation";
 
 
 const Logout = () => {
-    const router = useRouter()
+    const router = useRouter();
 
     const handleLogout = async () => {
-        signOut('github', { callbackUrl : '/'})
+        try {
+            await signOut('github', {redirect: false})
             console.log('signedOut,,,,..')
-            .then(() => {
             console.log('pushing,,,,..')
                 router.push('/');
-            })
-            .catch(error => {
+            }
+            catch(error){ 
                 console.error('Logout failed', error);
-            });
+            };
     }
 
     return (

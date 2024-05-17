@@ -13,7 +13,7 @@ export default  async function SingleBlogPage({params}) {
     const singleBlogData = await getSingleBlog(params.blogId)
 
     const singleBlogContent = (
-        <div className="m-20">
+        <div className="m-10 flex items-center">
         <Suspense fallback={<p>loading  single blog ...</p>}>
          <SinglePost promise={singleBlogData}/>
          </Suspense>

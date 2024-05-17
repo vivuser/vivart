@@ -6,7 +6,6 @@ import Mostviewed from "./components/Mostviewed";
 export default function Home() {
   return (
     <section>
-  <h1>Hello, Next.js!</h1>
   <section className="flex flex-col space-x-10 m-10">
   <Suspense fallback={<p>Loading feed ...</p>}>
     <Mostviewed />

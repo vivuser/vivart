@@ -72,9 +72,9 @@ import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
                 {filteredBlogs.map(blog => {
                     return (
                         <>
+                        <Link href={`/blogsData/${blog._id}`}>
                         <article key={blog._id} className='p-2 bg-slate-50 rounded-sm border-black'>
                             <h3 className='text-lg'>
-                                <Link href={`/blogsData/${blog._id}`}>
                                     <>
                                     {blog.title}
                                     <hr/>
@@ -87,10 +87,10 @@ import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
                                     {format(new Date(blog.createdAt),'MMMM dd yyyy')}
                                     </span>
                                     </>
-                                    </Link>
                             </h3>
                             <br />
                         </article>
+                        </Link>
                         </>
                     )
                 })}

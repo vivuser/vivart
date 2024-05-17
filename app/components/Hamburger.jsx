@@ -16,7 +16,7 @@ const Hamburger = ({ showNavbar, handleToggleNavbar}) => {
             <Sidebar isOpen={showNavbar} onClose={handleToggleNavbar}/>
             </>
         ): (
-            <MenuOpenIcon onClick={handleToggleNavbar} className=' m-2 md:hidden'/>
+            <MenuOpenIcon onClick={handleToggleNavbar} className=' m-1   md:hidden'/>
         )}
         </>
     )
