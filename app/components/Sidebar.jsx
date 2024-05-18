@@ -33,6 +33,10 @@ const Sidebar = ({ isOpen, onClose }) => {
             <p className="m-6 underline underline-offset-2 text-lg"><button onClick={() => handleNavigate('/login')}>Login</button></p>
             }
             <hr className="mx-6 border border-slate-300"/>
+            {isUser &&
+            <p className="m-6 underline underline-offset-2 text-lg"><button onClick={() => handleNavigate('/write')}>Write</button></p>
+            }
+            <hr className="mx-6 border border-slate-300"/>
         </div>
     )
 }

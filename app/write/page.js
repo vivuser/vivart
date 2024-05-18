@@ -74,23 +74,23 @@ import { useRouter } from 'next/navigation';
             'video',
         ]
 
-        const handleOpenAttachment = () => {
-            setOpen((prev) => !prev);
-        }
+        // const handleOpenAttachment = () => {
+        //     setOpen((prev) => !prev);
+        // }
 
-        const handleImageUpload = async (e) => {
-            try {
-                const file = e.target.files[0];
-                const formData = new FormData();    
-                formData.append('file', file);
+        // const handleImageUpload = async (e) => {
+        //     try {
+        //         const file = e.target.files[0];
+        //         const formData = new FormData();    
+        //         formData.append('file', file);
 
-                const response = await axios.post('blogs/image', formData);
-                const uploadedImageUrl = response.data.imageUrl;
-                setImageUrl(uploadedImageUrl);
-            } catch (error) {
-                console.error('Error uploading image:', error);
-            }
-        }
+        //         const response = await axios.post('blogs/image', formData);
+        //         const uploadedImageUrl = response.data.imageUrl;
+        //         setImageUrl(uploadedImageUrl);
+        //     } catch (error) {
+        //         console.error('Error uploading image:', error);
+        //     }
+        // }
 
         const handleSubmit = async () => {
             setIsLoading(true);
@@ -129,7 +129,7 @@ import { useRouter } from 'next/navigation';
         }
 
         return (
-            <div className="max-w-6xl mx-auto m-10">
+            <div className="max-w-6xl m-2 md:mx-auto mb-6">
                 <div className='flex flex-wrap justify-between'>
                 <h2 className="text-center text-3xl text-slate-700">Write <span className='text-orange-200'><DesignServicesIcon fontSize='large'/></span></h2>
                 <button className={`${isLoading ? 'bg-slate-100' : 'bg-slate-200'} mx-auto p-2`} onClick={handleSubmit}>Publish</button>
@@ -142,23 +142,23 @@ import { useRouter } from 'next/navigation';
                 onChange={(e) => setPostTags(e.target.value)}/>
 
                 <div className='flex items-start mt-4'>
-                <button className='float-left' onClick={handleOpenAttachment}><ControlPointIcon/></button>
-                { open && (
+                {/* <button className='float-left' onClick={handleOpenAttachment}><ControlPointIcon/></button> */}
+                {/* { open && (
                     <div className='outline mx-4 shadow-md border text-slate-500'>
                         <label className='m-2 p-1 hover:bg-white rounded-md'>
                             <input type='file' accept='image/*' onChange={handleImageUpload} style={{ display: 'none' }}/>
                             <AddPhotoAlternateIcon/>
                         </label>
                     </div>)
-                }
+                } */}
             </div>
-            {imageUrl && <img src={imageUrl} alt="Uploaded" className="mt-2 max-w-full h-auto" height={100} width={100}/>}
+            {/* {imageUrl && <img src={imageUrl} alt="Uploaded" className="mt-2 max-w-full h-auto" height={100} width={100}/>} */}
 
                 {/* <input type="text" placeholder='Content' className='outline-none p-2 h-80'
                 onChange={(e) => setPostContent(e.target.value)}/> */}
 
                 <ReactQuill
-                    className='max-w-6xl'
+                    className='max-w-6xl mb-6'
                     modules={modules}
                     theme="snow"
                     value={postContent}

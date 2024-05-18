@@ -11,15 +11,14 @@ const Logout = () => {
 
     const handleLogout = async () => {
         try {
-            await signOut('github', {redirect: false})
-            console.log('signedOut,,,,..')
-            console.log('pushing,,,,..')
-                router.push('/');
+            await signOut({ callbackUrl:'/'})
             }
             catch(error){ 
                 console.error('Logout failed', error);
             };
     }
+
+
 
     return (
         <button onClick={handleLogout} className="underline underline-offset-2 m-2">Logout</button>

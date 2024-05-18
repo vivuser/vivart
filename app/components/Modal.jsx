@@ -27,8 +27,9 @@ import { signIn } from "next-auth/react";
                     const modalData = await getAllBlogs();
                     setTags(modalData.data.values)
                     const filteredData = tags?.filter(tags && tags.trim() !== '')
-                    console.log(filteredData)
-                    setTags(filteredData);
+                    const limitedData = filteredData.slice(0,18)
+                    console.log(limitedData, 'length check')
+                    setTags(limitedData);
                 } catch (error) {
                     console.error("Error fetching modal data:", error);
                 }
@@ -84,10 +85,10 @@ import { signIn } from "next-auth/react";
 
         
         return (
-            <div className="bg-slate-100 flex justify-center items-center">
+            <div className="flex justify-center items-center">
                 <div className=" overflow-y-auto p-6 bg-white rounded-lg shadow-xl">
-                    <h2 className="text-lg text-muted-foreground">Choose your preferences</h2>
-                    <div className="grid grid-cols-2 gap-4">
+                    <h2 className="text-lg underline underline-offset-2 text-slate-800 text-muted-foreground mb-2">Choose your preferences</h2>
+                    <div className="grid grid-cols-2 gap-6 md:grid-cols-6">
                         {tags.map((tag) => (
                             <div key={tag.id}>
                             <input 
@@ -98,7 +99,7 @@ import { signIn } from "next-auth/react";
                             />
                             <div
                                 key={tag.id}
-                                className="cursor-pointer bg-gray-100 rounded-md p-3 hover:bg-gray-200 transition duration-300"
+                                className="cursor-pointer bg-gray-100 text-slate-800 rounded-md p-3 hover:bg-gray-200 transition duration-300"
                                 onClick={() => handleTagClick(tag)}
                             >
                                 {tag.tags}
