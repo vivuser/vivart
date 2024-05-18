@@ -10,7 +10,7 @@ import options from "@/app/api/auth/[...nextauth]/options";
 
 export default function VisibleTagsButton () {
 
-    const [blogsData , setBlogsData] = useState({ data: { values:[], tags:[] }})
+    const [blogsData , setBlogsData] = useState({ data : { values:[], tags:[] }})
     const [ selectedTag, setSelectedTag ] = useState(null);
     const [ filteredBlogs, setFilteredBlogs ] = useState([]); 
     const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +34,8 @@ export default function VisibleTagsButton () {
                     console.log(response, 'all res blogs....')
                 }
                 setBlogsData(response)
-                setFilteredBlogs(response.data.values);
+                setFilteredBlogs(response?.data?.values);
+                setFi
             } catch(error) {
                 console.error("Error fetching data: ", error)
             } finally{
@@ -44,8 +45,12 @@ export default function VisibleTagsButton () {
         fetchData()
    }, [userId])
 
+   console.log(filteredBlogs, 'this is filtered blogs')
+
+   console.log(blogsData?.data?.tags, 'this is tags, before , filtering visibletags')
    const visibleTags = ['All', ...(blogsData?.data?.tags || []).filter(tag => tag && tag.trim() !== '')];
-   
+   console.log(visibleTags,  'this is visible tags that will be available to the user to search from')
+
    const handleFilterBlogs = (tag) => {
     let filtered;
     if (tag === 'All') {

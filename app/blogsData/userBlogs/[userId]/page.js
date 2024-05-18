@@ -14,14 +14,41 @@ export const metadata ={
 export default async function Page(searchParams) {
 
     console.log(searchParams, ' searcg')
+      const tag = searchParams.searchParams.tag;
+      let query = searchParams.searchParams.query;
+      const userId = searchParams.params.userId
 
-    const userId = searchParams.params.userId
+    const blogsData = await getBlogsByUser(userId)
+    const blogs = await blogsData.data.values
 
-    const blogs = await getBlogsByUser(userId)
+    let filteredBlogs = blogs;
 
 
     const tags = await blogs
     console.log(tags, 'tagss')
+
+    if (tag?.length > 0) { 
+      console.log(tag, 'meher tag')
+      query = "";
+      console.log(query, 'setting query')
+      if (tag === 'All'){
+          filteredBlogs = blogs;
+      }
+      else {
+      filteredBlogs = blogs?.filter(blog => {
+          const blogTags = blog.tags || [];
+          return blogTags.includes(tag); 
+      });
+  }
+  }
+
+  if (query) {
+    console.log(query, ' This is query searched for')
+      filteredBlogs = blogs?.filter(blog => {
+         return blog.title.toLowerCase().includes(query.toLowerCase());
+      })
+  }
+  console.log(filteredBlogs, 'priyanks')
 
     // const visibleTags = tags?.filter(tag => tag && tag?.trim() !== '');
 
@@ -44,15 +71,10 @@ export default async function Page(searchParams) {
         </div>    
          <div className="flex flex-wrap gap-1 mt-2">
             <VisibleTagsButton />
-            {/* { tags?.map((tag, index) => (
-                <div key={index} className="bg-gray-100 px-2 py-1 text-xs">
-                    {tag.tags}
-                </div>
-            ))} */}
         </div> 
         <hr className="my-8" />     
         <div className='grid gap-10 sm:grid-cols-2 mx-10'>
-            {blogs?.map(blog => {
+            {filteredBlogs?.map(blog => {
                 return (
                     <>
                     <article key={blog._id} className='p-2 bg-slate-50 rounded-sm border-black'>
