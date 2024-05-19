@@ -48,7 +48,7 @@ export default function VisibleTagsButton () {
    console.log(filteredBlogs, 'this is filtered blogs')
 
    console.log(blogsData?.data?.tags, 'this is tags, before , filtering visibletags')
-   const visibleTags = ['All', ...(blogsData?.data?.tags || []).filter(tag => tag && tag.trim() !== '')];
+   const visibleTags = ['All', ...(blogsData?.data?.tags || []).filter(tag => tag && tag.trim() !== '')].slice(0,20);
    console.log(visibleTags,  'this is visible tags that will be available to the user to search from')
 
    const handleFilterBlogs = (tag) => {
