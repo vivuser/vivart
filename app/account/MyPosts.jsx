@@ -15,10 +15,16 @@ import getBlogsByUser from '../redux/apis/userBlogsApi'
     }
 
     const userId = session?.user?.id;
+  
 
     const handleShowPosts =async () => {
       setShowUserPosts(!showUserPosts);
-      const response = await getBlogsByUser(userId);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/mypost/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
       console.log(response, 'user blogs')
     }
 
