@@ -5,6 +5,7 @@
   import options from '../api/auth/[...nextauth]/options'
   import { kMaxLength } from 'buffer'
   import Link from 'next/link'
+import getBlogsByUser from '../redux/apis/userBlogsApi'
 
   const MyPosts = () => {
     const [showUserPosts, setShowUserPosts] = useState(false);
@@ -13,8 +14,12 @@
       console.log(session, '8888')
     }
 
-    const handleShowPosts = () => {
+    const userId = session?.user?.id;
+
+    const handleShowPosts =async () => {
       setShowUserPosts(!showUserPosts);
+      const response = await getBlogsByUser(userId);
+      console.log(response, 'user blogs')
     }
 
     const truncateContent = (content, maxLength) => {

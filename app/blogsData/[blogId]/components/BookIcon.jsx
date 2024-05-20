@@ -12,7 +12,6 @@ const BookIconComp =()=> {
     console.log(isUser, 'hainn')
     const blogParams = useParams();
     const postId = blogParams.blogId;
-    console.log(postId, 'this is post id')
 
     const handleSavePosts = async () => {
         try {
