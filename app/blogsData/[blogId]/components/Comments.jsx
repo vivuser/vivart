@@ -17,6 +17,7 @@ import axios from "axios";
 import getSingleBlog from "@/app/redux/apis/singleBlogApi";
 import { useSession } from "next-auth/react";
 import options from "@/app/api/auth/[...nextauth]/options";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 export default function CommentDrawer() { 
@@ -84,7 +85,7 @@ export default function CommentDrawer() {
 
     const handleComment = async () => {
         try{
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${id}/comments`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}/comments`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -151,7 +152,7 @@ export default function CommentDrawer() {
 
     const handleSaveReply = async (commentId) => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${params.id}/comments/${commentId}/replies`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}/comments/${commentId}/replies`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -201,6 +202,9 @@ export default function CommentDrawer() {
                     <button className="mx-1 p-1 rounded-full w-10 text-3xl"
                     onClick={handleShowCommentPad}>
                         {showCommentPad ?<CommentsDisabledIcon/> : <CommentIcon/>}</button>
+                        <button onClick={handleCloseDrawer} className="ml-auto">
+                                    <CloseIcon />
+                                </button>
                     </div>
             
 
@@ -226,7 +230,7 @@ export default function CommentDrawer() {
                    
 
                 <div className="bg-slate-50">
-                    <h2 className="text-2xl font-bold bg-slate-200 p-4">Comments</h2>
+                    <h2 className="text-2xl bg-slate-200 p-4">Comments</h2>
                     <ul>
                         {post && post.length >0 && (<>
                         {(post[0].comment)?.map((comment) => (

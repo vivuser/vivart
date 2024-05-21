@@ -14,16 +14,18 @@ const BookIconComp =()=> {
     const postId = blogParams.blogId;
 
     const handleSavePosts = async () => {
-        try {
         setSavePost(!savePost)  
+
+        try {
 
         if (!isUser) return;
         
-        await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/savedPosts/${isUser.user.id}/${postId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/savedPosts/${isUser.user.id}/${postId}`, {
             method: 'PUT',
-            headers: {
+            headers: {  
                 'Content-Type': 'application/json',
             },
+            body: JSON.stringify({ userId: isUser.user.id, postId: postId }),
         });
         } catch (error) {
             console.error('Error while updating, please try later', error);

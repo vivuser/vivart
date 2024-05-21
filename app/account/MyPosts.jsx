@@ -9,6 +9,7 @@ import getBlogsByUser from '../redux/apis/userBlogsApi'
 
   const MyPosts = () => {
     const [showUserPosts, setShowUserPosts] = useState(false);
+    const [userPosts, setUserPosts] = useState([])
     const { data: session, status }  = useSession(options);
     if (status !== "loading") {
       console.log(session, '8888')
@@ -19,13 +20,10 @@ import getBlogsByUser from '../redux/apis/userBlogsApi'
 
     const handleShowPosts =async () => {
       setShowUserPosts(!showUserPosts);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/mypost/${userId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/mypost/${userId}`)
+      const postResponse = response?.data
       console.log(response, 'user blogs')
+      setUserPosts(postResponse)
     }
 
     const truncateContent = (content, maxLength) => {
@@ -41,7 +39,7 @@ import getBlogsByUser from '../redux/apis/userBlogsApi'
         {showUserPosts && ( 
         <>
         <div className="flex flex-col">
-          {session?.user?.userposts.map((post) => (
+          {userPosts.map((post) => (
             <div key={post._id} className='bg-slate-100 p-3 m-3'>
             <Link href={`/blogsData/${post._id}`}>
               <h2 className='font-medium text-2xl'>{post.title}</h2>

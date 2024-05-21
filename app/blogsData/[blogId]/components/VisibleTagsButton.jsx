@@ -35,7 +35,6 @@ export default function VisibleTagsButton () {
                 }
                 setBlogsData(response)
                 setFilteredBlogs(response?.data?.values);
-                setFi
             } catch(error) {
                 console.error("Error fetching data: ", error)
             } finally{
