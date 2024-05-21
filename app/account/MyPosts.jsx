@@ -6,6 +6,7 @@
   import { kMaxLength } from 'buffer'
   import Link from 'next/link'
 import getBlogsByUser from '../redux/apis/userBlogsApi'
+import { format } from 'date-fns'
 
   const MyPosts = () => {
     const [showUserPosts, setShowUserPosts] = useState(false);
@@ -21,9 +22,15 @@ import getBlogsByUser from '../redux/apis/userBlogsApi'
     const handleShowPosts =async () => {
       setShowUserPosts(!showUserPosts);
       const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/mypost/${userId}`)
-      const postResponse = response?.data
-      console.log(response, 'user blogs')
+      if (response.data.length > 6) {
+      const postResponse = response?.data.slice(0,6)
       setUserPosts(postResponse)
+      }
+      else {
+      const postResponse = response?.data
+      setUserPosts(postResponse)
+      }
+      console.log(response, 'user blogs')
     }
 
     const truncateContent = (content, maxLength) => {
@@ -38,23 +45,27 @@ import getBlogsByUser from '../redux/apis/userBlogsApi'
         </button>
         {showUserPosts && ( 
         <>
-        <div className="flex flex-col">
+        <div className="max-w-3xl mx-auto  flex flex-col md:grid grid-cols-2">
           {userPosts.map((post) => (
             <div key={post._id} className='bg-slate-100 p-3 m-3'>
             <Link href={`/blogsData/${post._id}`}>
-              <h2 className='font-medium text-2xl'>{post.title}</h2>
+              <h2 className='font-medium text-lg'>{post.title}</h2>
               <hr/>
               <span className='text-sm mt-1' 
               dangerouslySetInnerHTML={{__html: truncateContent(post.content,100)}}>
+              </span>
+              <br/>
+              <span className='text-xs'>
+              {format(new Date(post.createdAt),'MMMM dd yyyy')}
               </span>
               </Link>
             </div>
           ))}
 
-          {session?.user?.userposts.length > 5 ?
-            <button className='bg-gray-200 p-2 mx-auto'>View All</button>
+          {userPosts.length > 5 ?
+            <button className='bg-gray-200 p-2 mx-auto align-center'>View All</button>
             :
-            session?.user?.userposts.length < 1 ? 
+            userPosts.length < 1 ? 
             <div className='flex justify-center'>
             <p className='text-slate-600'>Write your <span className='underline underline-offset-2' ><Link href={'/write'}>first post</Link></span></p>
             </div>
