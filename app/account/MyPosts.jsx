@@ -23,8 +23,8 @@ import { format } from 'date-fns'
       setShowUserPosts(!showUserPosts);
       const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/mypost/${userId}`)
       if (response.data.length > 6) {
-      const postResponse = response?.data.slice(0,6)
-      setUserPosts(postResponse)
+      const postResponse = response?.data
+      setUserPosts(postResponse.slice(0,6))
       }
       else {
       const postResponse = response?.data
@@ -35,6 +35,11 @@ import { format } from 'date-fns'
 
     const truncateContent = (content, maxLength) => {
       return content.length > maxLength ? content.slice(0, maxLength - 3) + '...' : content;
+    }
+
+    const handleShowMore = async () => {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/mypost/${userId}`)
+      setUserPosts(response?.data)
     }
 
 
@@ -63,7 +68,7 @@ import { format } from 'date-fns'
           ))}
 
           {userPosts.length > 5 ?
-            <button className='bg-gray-200 p-2 mx-auto align-center'>View All</button>
+            <button className='bg-gray-200 p-2 mx-auto align-center' onClick={handleShowMore}>View All</button>
             :
             userPosts.length < 1 ? 
             <div className='flex justify-center'>
