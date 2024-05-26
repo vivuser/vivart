@@ -11,6 +11,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import EditedPost from './EditedPostComponent'
 import { useRouter } from 'next/navigation'
+import { useDispatch } from 'react-redux'
+import { openSnackbar } from '../redux/slices/commonSlice'
 
   const MyPosts = () => {
     const [showUserPosts, setShowUserPosts] = useState(false);
@@ -18,6 +20,7 @@ import { useRouter } from 'next/navigation'
     const [showUpdateButton, setShowUpdateButton] = useState(false);
     const [editedPost, setEditedPost] = useState(false);
     const { data: session, status }  = useSession(options);
+    const dispatch = useDispatch();
     if (status !== "loading") {
       console.log(session, '8888')
     }
@@ -51,8 +54,20 @@ import { useRouter } from 'next/navigation'
 
     const handleDelete =  async (id) => {
       console.log(id, 'this id to be deleted')
-      const response = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${userId}/${id}`,)
-      }
+      try {
+          const response = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${userId}/${id}`,)
+          setUserPosts(userPosts.filter(post => post.id !== id));
+          dispatch(
+            openSnackbar({
+              content: 'Post deleted successfully',
+              color: 'success'
+            })
+          )
+        }
+        catch(error) {
+          console.log('Error deleting post', error)
+        }
+        }
 
       const handleEditPost = async (id) => {
         router.push(`/blogsData/${id}/edit`)

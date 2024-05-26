@@ -7,16 +7,18 @@
     import ControlPointIcon from '@mui/icons-material/ControlPoint';
     import DesignServicesIcon from '@mui/icons-material/DesignServices';
     import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-    // import ReactQuill from 'react-quill';
+    import 'highlight.js/styles/github.css';
+    import hljs from 'highlight.js';
     import 'react-quill/dist/quill.snow.css';
     import { useSession } from 'next-auth/react';
     import options from '../api/auth/[...nextauth]/options';
-import { openSnackbar } from '../redux/slices/commonSlice';
-import { useRouter } from 'next/navigation';
+    import { openSnackbar } from '../redux/slices/commonSlice';
+    import { useRouter } from 'next/navigation';
 
     const ReactQuill = dynamic(() => import('react-quill'), {
         ssr: false
     })
+
 
     const Write = () => {
         const [open, setOpen ] = useState(false);
@@ -111,6 +113,7 @@ import { useRouter } from 'next/navigation';
                 })
 
                 if (response.ok) {
+                    console.log('sucess response')
                     dispatch(
                         openSnackbar({
                             content: 'Post created successfuly',
@@ -159,7 +162,7 @@ import { useRouter } from 'next/navigation';
 
                 <ReactQuill
                     className='max-w-6xl mb-6'
-                    modules={modules}
+                    modules={ modules}
                     theme="snow"
                     value={postContent}
                     onChange={setPostContent}
