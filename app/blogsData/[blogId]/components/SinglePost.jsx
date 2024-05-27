@@ -21,7 +21,7 @@ export default async function UserPosts({ promise }) {
                 <hr />
                 <SingleBlogNav />
                 <hr/>
-                <div dangerouslySetInnerHTML={{ __html: applyCodeBlockStyling(post.content) }} className="mt-2"></div>
+                <div dangerouslySetInnerHTML={{ __html: applyCodeBlockStyling(post.content) }} className="mt-2 p-2"></div>
             </article>
             <BookIconComp />
         </div>
