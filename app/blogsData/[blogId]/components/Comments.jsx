@@ -218,7 +218,7 @@ export default function CommentDrawer() {
                     className="mx-auto"
                     style={{ width: '500px' }} 
                     variant="standard" />
-                <button className="pl-4 pr-4 mt-3 mb-6 rounded-md text-md"
+                <button className="pl-4 pr-4 mt-3 mb-2 rounded-md text-md"
                 onClick={handleComment}>
                     <ArrowCircleRightOutlinedIcon
                     fontSize="large"/>
@@ -230,7 +230,7 @@ export default function CommentDrawer() {
                    
 
                 <div className="bg-slate-50">
-                    <h2 className="text-2xl bg-slate-200 p-4">Comments</h2>
+                    <h2 className="text-lg bg-slate-200 p-1 pl-3">Comments</h2>
                     <ul>
                         {post && post.length >0 && (<>
                         {(post[0].comment)?.map((comment) => (

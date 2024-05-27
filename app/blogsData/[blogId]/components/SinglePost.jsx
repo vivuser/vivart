@@ -4,6 +4,8 @@ import MapsUgcOutlinedComp from "@/app/components/MapsUgcOutlined";
 import CommentDrawer from "./Comments";
 import SingleBlogNav from "./SingleBlogNavComp";
 import SinglePost from "./SinglePost.css"
+import { Suspense } from "react";
+import VisibleTagsLoader from "./visibleTagsLoader";
 
 export default async function UserPosts({ promise }) {
     const posts = await promise;
@@ -19,7 +21,9 @@ export default async function UserPosts({ promise }) {
             <article>
                 <h2 className="inline-block font-heading text-3xl tracking-tight lg:text-4xl mb-4">{post.title}</h2>
                 <hr />
+                <Suspense fallback={<p>Loading..</p>}>
                 <SingleBlogNav />
+                </Suspense>
                 <hr/>
                 <div dangerouslySetInnerHTML={{ __html: applyCodeBlockStyling(post.content) }} className="mt-2 p-2"></div>
             </article>

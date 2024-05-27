@@ -82,13 +82,20 @@ const EditedPost = () => {
     }
 
     const handleUpdate = async () => {
-        const updateResponse = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${userId}/${id}`)
+        const updateResponse = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${userId}/${id}`,
+            {
+                title: editedPost.title,
+                content: editedPost.content,
+                tags: editedPost.tags,
+            }
+        )
     }
 
     return (
         <div className="max-w-4xl mx-auto m-6">
             <div className="mx-auto m-4">
             <input type="text" name="title" value={editedPost?.title} onChange={handleInputChange} className="h-10 text-2xl border-none"/>
+            <input type="text" name="tags" value={editedPost?.tags} onChange={handleInputChange} className="h-10 text-2xl border-none"/>
             </div>
             <div className="flex flex-wrap m-2">
             <button className="bg-slate-300 m-1 p-2" onClick={handleUpdate} >Update</button>
