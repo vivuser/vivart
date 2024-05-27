@@ -1,5 +1,5 @@
   "use client"
-  import React, { useState } from 'react'
+  import React, { useEffect, useState } from 'react'
   import axios from 'axios'
   import { useSession } from 'next-auth/react'
   import options from '../api/auth/[...nextauth]/options'
@@ -56,7 +56,8 @@ import { openSnackbar } from '../redux/slices/commonSlice'
       console.log(id, 'this id to be deleted')
       try {
           const response = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${userId}/${id}`,)
-          setUserPosts(userPosts.filter(post => post.id !== id));
+          handleShowPosts();
+          setShowUserPosts(true);
           dispatch(
             openSnackbar({
               content: 'Post deleted successfully',

@@ -7,8 +7,8 @@
     import ControlPointIcon from '@mui/icons-material/ControlPoint';
     import DesignServicesIcon from '@mui/icons-material/DesignServices';
     import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-    import 'highlight.js/styles/github.css';
-    import hljs from 'highlight.js';
+    // import 'highlight.js/styles/github.css';
+    // import hljs from 'highlight.js';
     import 'react-quill/dist/quill.snow.css';
     import { useSession } from 'next-auth/react';
     import options from '../api/auth/[...nextauth]/options';

@@ -15,6 +15,10 @@ import options from "@/app/api/auth/[...nextauth]/options";
 import { toast } from "react-hot-toast"
 import { useHistory } from 'react-router-dom';
 import { useRouter } from "next/navigation";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { InputAdornment } from "@mui/material";
+import TextField from '@mui/material/TextField';
 
 
 export default function RegisterForm() {
@@ -104,6 +108,13 @@ export default function RegisterForm() {
         }
     }
 
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword)
+    }
+
+    const handleHidePassword = () => {
+        setShowPassword(!showPassword)
+    }
 
 
     return (
@@ -123,7 +134,29 @@ export default function RegisterForm() {
         }
         <input placeholder="Email" type="email" value={email} onChange={e=>setEmail(e.target.value)} className="p-1 m-2 mt-2"/>
         {emailError && <p className="text-red-500 pl-2">{emailError}</p>}
-        <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.   target.value)} className="p-1 m-2"/>
+        <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} className="p-1 m-2"
+        />
+        
+        {/* <TextField
+        placeholder="Password"
+        type={showPassword ? 'text' : 'password'}
+        value={password}
+        onChange={e=>setPassword(e.target.value)}
+        className="p-1 m-2 mt-2"
+        InputProps={{
+        endAdornment: (
+        <InputAdornment position="end">
+            {showPassword ? (
+              <VisibilityIcon onClick={handleShowPassword} className="cursor-pointer"/>
+            ) : (
+              <VisibilityOffIcon onClick={handleHidePassword} className="cursor-pointer"/>
+            )}
+          </InputAdornment>
+        ),
+      }}
+    /> */}
+
+
         {passwordError && <p className="text-red-500 pl-2">{passwordError}</p>}
         { !isLogin && 
         <>

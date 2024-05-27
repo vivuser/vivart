@@ -27,6 +27,7 @@
     "mongodb": "^6.6.0",
     "next": "14.1.4",
     "next-auth": "^4.24.7",
+    "quill-react-commercial": "^1.5.9",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",

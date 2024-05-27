@@ -5,6 +5,8 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import 'react-quill/dist/quill.snow.css';
+import { useSession } from "next-auth/react";
+import options from "../api/auth/[...nextauth]/options";
 const ReactQuill = dynamic(() => import('react-quill'), {
     ssr: false
 })
@@ -49,12 +51,15 @@ const formats = [
     'video',
 ]
 
-const EditedPost = ( ) => {
+const EditedPost = () => {
     const [editedPost, setEditedPost] = useState([]);
 
     const params = useParams();
     console.log(params, 'this is params')
     const id = params.blogId
+    const { data: isUser } = useSession(options);
+    console.log(isUser, 'isUser')
+    const userId = isUser?.user.id
 
     const fetchPostResponse = async () => {
         try {
@@ -76,8 +81,8 @@ const EditedPost = ( ) => {
         setEditedPost({...editedPost, [name]:value });
     }
 
-    const handleUpdate = () => {
-        onUpdate(editedPost);
+    const handleUpdate = async () => {
+        const updateResponse = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${userId}/${id}`)
     }
 
     return (
@@ -86,7 +91,7 @@ const EditedPost = ( ) => {
             <input type="text" name="title" value={editedPost?.title} onChange={handleInputChange} className="h-10 text-2xl border-none"/>
             </div>
             <div className="flex flex-wrap m-2">
-            <button className="bg-slate-300 m-1 p-2" >Update</button>
+            <button className="bg-slate-300 m-1 p-2" onClick={handleUpdate} >Update</button>
             <button className="bg-slate-300 m-1 p-2" >Cancel</button>
             </div>
 
