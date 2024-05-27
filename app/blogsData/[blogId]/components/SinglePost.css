@@ -4,4 +4,11 @@ pre.ql-syntax.custom-code-block-bg {
     padding: 4px;
     padding: auto;
     border: 1px solid rgb(232, 236, 242);
+    white-space: pre-wrap;
+}
+
+@media screen and (max-width: 768px) {
+    .pre-ql-syntax.custom-code-block-bg {
+        padding: auto; 
+    }
 }
