@@ -58,18 +58,24 @@ export default function RegisterForm() {
                  
                 .then((callback) => {
                     if (callback?.error) {
-                        toast.error(callback.error)
+                        dispatch(
+                            openSnackbar({
+                                content: 'Invalid credentials',
+                                color: 'success'
+                            })
+                        )
+                        setIsLoading(false)
                     }
                     if (callback?.ok && !callback?.error){
                         setIsLoading(false)
                         
-                        router.push('/')
                         dispatch(
                             openSnackbar({
                                 content: 'User logged-in successfuly',
                                 color: 'success'
                             })
                         )
+                        router.push('/')
                         router.refresh()                       
                     }
                 })      
@@ -101,6 +107,12 @@ export default function RegisterForm() {
             if (response.status === 201) {
                 console.log('registered successfully')
                 setIsLoading(false)
+                dispatch (
+                    openSnackbar({
+                        content : 'User registered successfully',
+                        color: 'success'
+                    })
+                )
                 dispatch(signupSucess(response.data));
                 dispatch(openModal({ content: "SelectTags", data: {} }));
 
@@ -112,6 +124,12 @@ export default function RegisterForm() {
         catch (error) {
             console.error('Error registering user:', error)
             dispatch(signupFailure(error.message));
+            dispatch(
+                openSnackbar({
+                    content: 'Something went wrong',
+                    color: 'sucess'
+                })
+            )
         }
     }
 
@@ -126,6 +144,7 @@ export default function RegisterForm() {
 
     return (
         <>
+        <AutohideSnackbar />
         {modalIsOpen ? <Modal /> : 
         <div className="flex flex-col mx-auto max-w-md bg-slate-100 mt-20 shadow-md">
         {isLogin ?    

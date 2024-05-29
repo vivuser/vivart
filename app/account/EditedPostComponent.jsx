@@ -1,12 +1,15 @@
 "use client"
 
 import dynamic from "next/dynamic";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import 'react-quill/dist/quill.snow.css';
 import { useSession } from "next-auth/react";
 import options from "../api/auth/[...nextauth]/options";
+import { useDispatch } from "react-redux";
+import { openSnackbar } from "../redux/slices/commonSlice";
+import AutohideSnackbar from "../components/Snackbar";
 const ReactQuill = dynamic(() => import('react-quill'), {
     ssr: false
 })
@@ -60,6 +63,9 @@ const EditedPost = () => {
     const { data: isUser } = useSession(options);
     console.log(isUser, 'isUser')
     const userId = isUser?.user.id
+    const dispatch = useDispatch()
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter()
 
     const fetchPostResponse = async () => {
         try {
@@ -82,6 +88,7 @@ const EditedPost = () => {
     }
 
     const handleUpdate = async () => {
+        setIsLoading(true)
         const updateResponse = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${userId}/${id}`,
             {
                 title: editedPost.title,
@@ -89,17 +96,40 @@ const EditedPost = () => {
                 tags: editedPost.tags,
             }
         )
+        if (updateResponse.status === 200) {
+            dispatch(
+                openSnackbar({
+                    content: 'Post updated successfully',
+                    color: 'success'
+                })
+            )    
+            setIsLoading(false) 
+        }  
+        else {
+            dispatch(
+                openSnackbar({
+                    content: 'Something went wrong',
+                    color: 'success'
+                })
+            )  
+            setIsLoading(false) 
+        }
     }
 
-    return (
+    const handleCancel = () => {
+        router.push('/account')
+    }
+
+    return (<>
         <div className="max-w-4xl mx-auto m-6">
+            <AutohideSnackbar />
             <div className="mx-auto m-4">
             <input type="text" name="title" value={editedPost?.title} onChange={handleInputChange} className="h-10 text-2xl border-none"/>
             <input type="text" name="tags" value={editedPost?.tags} onChange={handleInputChange} className="h-10 text-2xl border-none"/>
             </div>
             <div className="flex flex-wrap m-2">
-            <button className="bg-slate-300 m-1 p-2" onClick={handleUpdate} >Update</button>
-            <button className="bg-slate-300 m-1 p-2" >Cancel</button>
+            <button className={`${isLoading ? 'bg-slate-200' : 'bg-slate-300'} m-1 p-2`} onClick={handleUpdate} >Update</button>
+            <button className="bg-slate-300 m-1 p-2" onClick={handleCancel} >Cancel</button>
             </div>
 
 
@@ -114,7 +144,7 @@ const EditedPost = () => {
                     style={{ height: '400px'}}
                 />
         </div>
-    )
+        </>)
 }
 
 export default EditedPost;
