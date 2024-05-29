@@ -12,8 +12,9 @@
     import 'react-quill/dist/quill.snow.css';
     import { useSession } from 'next-auth/react';
     import options from '../api/auth/[...nextauth]/options';
-    import { openSnackbar } from '../redux/slices/commonSlice';
     import { useRouter } from 'next/navigation';
+import AutohideSnackbar from '../components/Snackbar';
+import { openSnackbar } from '../redux/slices/commonSlice';
 
     const ReactQuill = dynamic(() => import('react-quill'), {
         ssr: false
@@ -123,7 +124,6 @@
                     setTitle("");
                     setPostTags("")
                     setPostContent("");
-                    router.push('/account')
                 }
 
             } catch (error) {
@@ -134,6 +134,7 @@
         return (
             <div className="max-w-6xl m-2 md:mx-auto mb-6">
                 <div className='flex flex-wrap justify-between'>
+                    <AutohideSnackbar />
                 <h2 className="text-center text-3xl text-slate-700">Write <span className='text-orange-200'><DesignServicesIcon fontSize='large'/></span></h2>
                 <button className={`${isLoading ? 'bg-slate-100' : 'bg-slate-200'} mx-auto p-2`} onClick={handleSubmit}>Publish</button>
                 </div>

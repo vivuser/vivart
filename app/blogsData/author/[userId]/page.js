@@ -59,7 +59,7 @@ export default async function AuthorPage(searchParams) {
               Blogs
             </h1>
             <p className="text-xl text-muted-foreground">
-              Blog by {searchParams.params.userId}
+              Blogs by {searchParams.params.userId}
             </p>
           </div>
         </div>  

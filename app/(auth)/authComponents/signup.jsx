@@ -2,7 +2,7 @@
 
 import Modal from "@/app/components/Modal";
 import { loginSuccess, signupFailure, signupStart, signupSucess } from "@/app/redux/slices/authSlice";
-import { openModal } from "@/app/redux/slices/commonSlice";
+import { openModal, openSnackbar } from "@/app/redux/slices/commonSlice";
 import { validateRegisterForm } from "@/app/utilities/validations/authValidations";
 import axios from "axios";
 import { useState } from "react"
@@ -19,6 +19,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { InputAdornment } from "@mui/material";
 import TextField from '@mui/material/TextField';
+import AutohideSnackbar from "@/app/components/Snackbar";
 
 
 export default function RegisterForm() {
@@ -61,8 +62,14 @@ export default function RegisterForm() {
                     }
                     if (callback?.ok && !callback?.error){
                         setIsLoading(false)
-                        toast.success('Logged in successfully!')
+                        
                         router.push('/')
+                        dispatch(
+                            openSnackbar({
+                                content: 'User logged-in successfuly',
+                                color: 'success'
+                            })
+                        )
                         router.refresh()                       
                     }
                 })      

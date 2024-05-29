@@ -22,7 +22,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     }
 
     return (
-        <div className={`bg-slate-200 flex flex-col absolute z-50 w-full h-full ${isOpen ? '' :'hidden'} md:hidden`}>
+        <div className={`bg-slate-200 flex flex-col fixed z-50 w-full h-full overflow-hidden ${isOpen ? '' :'hidden'} md:hidden`}>
             <p className="m-6 underline underline-offset-2 text-lg"><button onClick={() => handleNavigate('/')} >Home</button></p>
             <hr className="mx-6 border border-slate-300"/>
             <p className="m-6 underline underline-offset-2 text-lg"><button onClick={() => handleNavigate('/blogsData')}>Blogs</button></p>

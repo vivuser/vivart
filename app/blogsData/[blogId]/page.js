@@ -12,6 +12,17 @@ export default  async function SingleBlogPage({params}) {
 
     const singleBlogData = await getSingleBlog(params.blogId)
 
+    const incrementViews = async () => {
+        try {
+            console.log('incrementing view')
+            await axios.post(`http://localhost:3001/blogs/${params.id}/increment-views`)
+        } catch (error) {
+            console.error('Error incrementing views', error)
+            console.log(params.id, 'paramsId')
+
+        }
+    }
+
     const singleBlogContent = (
         <div className="m-10 flex items-center">
         <Suspense fallback={<p>loading  single blog ...</p>}>

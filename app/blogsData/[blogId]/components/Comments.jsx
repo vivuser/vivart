@@ -68,21 +68,6 @@ export default function CommentDrawer() {
     }
     
 
-
-    const incrementViews = async () => {
-        try {
-            await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${id}/increment-views`)
-        } catch (error) {
-            console.error('Error incrementing views', error)
-            console.log(id, 'paramsId')
-        }
-    }
-
-    useEffect(() => {
-        fetchPost(id);
-        incrementViews();
-    }, [])
-
     const handleComment = async () => {
         try{
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}/comments`, {

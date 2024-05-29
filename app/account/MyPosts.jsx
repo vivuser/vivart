@@ -13,6 +13,7 @@ import EditedPost from './EditedPostComponent'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { openSnackbar } from '../redux/slices/commonSlice'
+import AutohideSnackbar from '../components/Snackbar'
 
   const MyPosts = () => {
     const [showUserPosts, setShowUserPosts] = useState(false);
@@ -88,6 +89,7 @@ import { openSnackbar } from '../redux/slices/commonSlice'
       }
 
       return (<>
+      <AutohideSnackbar/>
           <button className='bg-gray-200 p-1 m-2'
           onClick={handleShowPosts}>
         My posts

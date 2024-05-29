@@ -5,12 +5,16 @@ import CommentDrawer from "./Comments";
 import getSingleBlog from "@/app/redux/apis/singleBlogApi";
 import { useParams, useRouter } from "next/navigation";
 import { format } from "date-fns";
+import { useSession } from "next-auth/react";
+import options from "@/app/api/auth/[...nextauth]/options";
 
 const SingleBlogNav = () => {
     const [posts,setPosts] = useState([])
     
     let params = useParams()
     const router = useRouter();
+    const { data: isUser } = useSession(options);
+    console.log(isUser, 'this is the user')
 
 
     useEffect(() => {
@@ -28,7 +32,7 @@ const SingleBlogNav = () => {
     }
 
     const handleUserSelect = () => {
-        router.push(`/blogsData/author/${params.blogId}`)
+        router.push(`/blogsData/author/${isUser.user.id}`)
     }
 
     console

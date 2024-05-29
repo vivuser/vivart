@@ -11,7 +11,7 @@ const initialState = {
         color: 'primary',
         icon: '',
         content: '',
-        autoHideDuration: 5000,
+        autoHideDuration: 3000,
     }
 };
 

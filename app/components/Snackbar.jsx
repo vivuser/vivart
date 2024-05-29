@@ -1,8 +1,8 @@
 "use client"
 import * as React from 'react';
-import { openSnackbar, closeSnackbar } from '../redux/commonSlice';
 import Snackbar from '@mui/material/Snackbar';
 import { useDispatch, useSelector } from 'react-redux';
+import { closeSnackbar } from '../redux/slices/commonSlice';
 
 export default function AutohideSnackbar() {
   const dispatch = useDispatch();
