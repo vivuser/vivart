@@ -8,7 +8,7 @@ import AutohideSnackbar from "./components/Snackbar";
 export default function Home() {
   return (
     <section>
-  <section className="flex flex-col space-x-10 m-10">
+  <section className="flex flex-col space-x-10">
   <AutohideSnackbar />
   <Suspense fallback={<HomepageLoader/>}>
     <Mostviewed />

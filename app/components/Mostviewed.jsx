@@ -31,7 +31,7 @@ const Mostviewed = async () => {
                             <br/>
                             </div>
                             <span className='text-sm'
-                            dangerouslySetInnerHTML={{__html: truncateContent(blog.content,200)}}>
+                            dangerouslySetInnerHTML={{__html: truncateContent(blog.content,150)}}>
                             </span>
                             <br/>
                             <span className='text-xs'>

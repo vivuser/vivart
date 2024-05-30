@@ -90,7 +90,7 @@ import AutohideSnackbar from '../components/Snackbar'
 
       return (<>
       <AutohideSnackbar/>
-          <button className='bg-gray-200 p-1 m-2'
+          <button className='bg-gray-200 p-1 m-2 text-slate-800'
           onClick={handleShowPosts}>
         My posts
           </button>

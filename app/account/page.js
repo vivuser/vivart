@@ -10,12 +10,11 @@ const Account = async () => {
     const getSessionUser = await getServerSession(options)
 
     return (
-        <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col max-w-xl mx-auto">
             <h1 className="text-lg font-semibold m-2">Account Settings</h1>
+            <p className="m-2"><span className="underline underline-offset-2 text-slate-700">Logged-in user:</span> {getSessionUser?.user?.name?.split(' ')[0] || getSessionUser?.user?.email} </p>
             <MyPosts />
-            <p className="m-2">My drafts </p>
             <SavedPost />
-            <p className="m-2">Logged-in user: {getSessionUser?.user?.name?.split(' ')[0] || getSessionUser?.user?.email} </p>
             <Logout/>
         </div>
     )

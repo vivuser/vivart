@@ -29,7 +29,7 @@ const SavedPost = () => {
 
     return (
         <>
-        <button className='bg-gray-200 p-1 m-2' onClick={fetchSavedPosts}>Saved posts</button>
+        <button className='bg-gray-200 p-1 m-2 text-slate-800' onClick={fetchSavedPosts}>Saved posts</button>
 
         <div className="max-w-3xl mx-auto  flex flex-col md:grid grid-cols-2">
           {showResponse && showSavedBlogs.map((post) => (

@@ -125,8 +125,8 @@ const EditedPost = () => {
             <AutohideSnackbar />
             <div className="mx-auto m-4">
             <input type="text" name="title" value={editedPost?.title} onChange={handleInputChange} className="h-10 text-2xl border-none"/>
-            <button className={`${isLoading ? 'bg-slate-200' : 'bg-slate-300'} m-1 p-2`} onClick={handleUpdate} >Update</button>
-            <button className="bg-slate-300 m-1 p-2" onClick={handleCancel} >Cancel</button>
+            <button className={`${isLoading ? 'bg-slate-200' : 'bg-slate-300'} m-1 p-1 text-sm`} onClick={handleUpdate} >Update</button>
+            <button className="bg-slate-300 m-1 p-1 text-sm" onClick={handleCancel} >Cancel</button>
             </div>
 
             <input type="text" name="tags" value={editedPost?.tags} onChange={handleInputChange} className="h-10 text-md text-slate-600 border-none"/>
