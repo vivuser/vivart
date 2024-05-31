@@ -5,6 +5,8 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import Link from "next/link"
 import { format } from "date-fns"
+import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
+
 
 const SavedPost = () => {
 
@@ -27,6 +29,23 @@ const SavedPost = () => {
         return content.length > maxLength ? content.slice(0, maxLength - 3) + '...' : content;
       }
 
+
+     const handleRemoveBook = async (id) => {
+        console.log('uu')
+        try{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/savedPosts/${isUser.user.id}/${id}`, {
+            method: 'PUT',
+            headers: {  
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId: isUser.user.id, postId: postId }),
+        });
+        } catch (error) {
+            console.error('Error while updating, please try later', error);
+        }
+
+    }
+
     return (
         <>
         <button className='bg-gray-200 p-1 m-2 text-slate-800' onClick={fetchSavedPosts}>Saved posts</button>
@@ -43,6 +62,7 @@ const SavedPost = () => {
               <br/>
               <span className='text-xs'>
               {format(new Date(post.createdAt),'MMMM dd yyyy')}
+              <button onClick={() => handleRemoveBook(post._id)}> <BookmarkRemoveIcon /></button> 
               </span>
               </Link>
             </div>))
