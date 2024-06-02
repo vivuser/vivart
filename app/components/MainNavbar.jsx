@@ -18,7 +18,7 @@ const MainNavbar = async ( {showNavbar}) => {
         
             {  
             session && session?.user.topics.length > 0 ?
-            <li className="mx-10"><Link href={`blogsData/userBlogs/${session.user.id}`}>Blogs</Link></li>
+            <li className="mx-10"><Link href={`/blogsData/userBlogs/${session.user.id}`}>Blogs</Link></li>
                        :
             <li className="mx-10"><Link href="/blogsData">Blogs</Link></li>
 
