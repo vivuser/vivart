@@ -77,10 +77,17 @@ import { signIn } from "next-auth/react";
             console.log('also signed in')
             setIsLoading(false);
             router.push(`/blogsData/userBlogs/${userId}`)
+            router.refresh()
             
         } catch(error) {
                 console.error("Error sending selected topics: ", error);
         }
+        }
+
+        const handleSkip = () => {
+            handleSignIn();
+            router.push('/blogsData')
+            router.refresh()
         }
 
         
@@ -106,7 +113,7 @@ import { signIn } from "next-auth/react";
                             </div>
                             </div>
                         ))}
-                        <span className="underline underline-offset-4 text-slate-500 cursor-pointer" onClick={()=>router.push('/blogsData')}>skip</span>
+                        <span className="underline underline-offset-4 text-slate-500 cursor-pointer" onClick={handleSkip}>skip</span>
                         <span className={`underline underline-offset-4 ${isLoading ? 'text-slate-300' : 'text-slate-500'} cursor-pointer`} onClick={handleUserSelections}>next</span>
                     </div>
                 </div>

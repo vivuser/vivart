@@ -32,6 +32,7 @@ const SingleBlogNav = () => {
     }
 
     const handleUserSelect = () => {
+        console.log(isUser, 'iuser')
         router.push(`/blogsData/author/${isUser.user.id}`)
     }
 
@@ -44,7 +45,7 @@ const SingleBlogNav = () => {
         <h3 className="text-xs">Tags: 
         <span className="underline underline-offset-2 p-2 text-slate-600 cursor-pointer" onClick={() => handleTagSelect(posts?.tags)}>{post?.tags}</span></h3> 
         <h3 className="text-xs">Author: 
-        <span className="underline underline-offset-2 p-2 text-slate-600 cursor-pointer" onClick={() => handleUserSelect()}>{post?.author.split(' ')[0]}</span></h3>
+        <span className="underline underline-offset-2 p-2 text-slate-600 cursor-pointer">{post?.author.split(' ')[0]}</span></h3>
         <h3 className="text-xs">Date: 
         <span className="underline underline-offset-2 p-2 text-slate-600">{format(new Date(post.createdAt), 'MMMM dd, yy')}</span></h3>
         {/* <MapsUgcOutlinedComp /> */}

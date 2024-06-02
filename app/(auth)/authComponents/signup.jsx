@@ -115,6 +115,7 @@ export default function RegisterForm() {
                 )
                 dispatch(signupSucess(response.data));
                 dispatch(openModal({ content: "SelectTags", data: {} }));
+                router.refresh()
 
             }else
                 {
