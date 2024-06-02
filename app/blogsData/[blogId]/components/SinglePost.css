@@ -1,10 +1,11 @@
 pre.ql-syntax.custom-code-block-bg {
-    background-color: snow; 
+    background-color: #f4f2eb; 
     margin: 1px;
     padding: 4px;
     padding: auto;
-    border: 1px solid rgb(232, 236, 242);
+    border: 1px solid rgb(216, 221, 195);
     white-space: pre-wrap;
+    font-size: 14px;
 }
 
 @media screen and (max-width: 768px) {
