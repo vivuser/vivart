@@ -70,7 +70,7 @@ import { signIn } from "next-auth/react";
             const response = await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/topics/${userId}`, requestData )
 
             if (response.status === 200) {
-                console.log('Inside checjking.....')
+                console.log('Inside checjking.....jjj')
                 handleSignIn()
             }
 
