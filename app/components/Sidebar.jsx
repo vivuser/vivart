@@ -25,7 +25,11 @@ const Sidebar = ({ isOpen, onClose }) => {
         <div className={`bg-slate-200 flex flex-col fixed z-50 w-full h-full overflow-hidden ${isOpen ? '' :'hidden'} md:hidden`}>
             <p className="m-6 underline underline-offset-2 text-lg"><button onClick={() => handleNavigate('/')} >Home</button></p>
             <hr className="mx-6 border border-slate-300"/>
-            <p className="m-6 underline underline-offset-2 text-lg"><button onClick={() => handleNavigate('/blogsData')}>Blogs</button></p>
+            {isUser && isUser?.user.topics.length > 0 ?
+            <p className="m-6 underline underline-offset-2 text-lg"><button onClick={() => handleNavigate(`/blogsData/userBlogs/${isUser.user.id}`)}>Blogs</button></p>
+                    :
+                    <p className="m-6 underline underline-offset-2 text-lg"><button onClick={() => handleNavigate('/blogsData')}>Blogs</button></p>
+             }
             <hr className="mx-6 border border-slate-300"/>
             {isUser ? 
             <p className="m-6 underline underline-offset-2 text-lg"><button onClick={() => handleNavigate('/account')}>{isUser.user.name.split(' ')[0]}</button></p>

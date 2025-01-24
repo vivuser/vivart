@@ -21,7 +21,7 @@ const Mostviewed = async () => {
             <div className="flex flex-wrap justify-center" >
             {sortedPosts.map((blog) => {
                 return (    
-                    <div key={blog.id} style={{ width: '400px', height:'200px', margin:'6px'}}>
+                    <div key={blog.id} style={{ width: '400px', margin:'6px'}}>
                         <Link href={`blogsData/${blog._id}`}>
                         <div className="bg-gray-100 m-2 p-2" style={{ height: '100%'}}>
                         <div className="flex flex-col">

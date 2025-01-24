@@ -290,7 +290,7 @@ export default function CommentDrawer() {
                         </li>
                         <div className="flex items-center">
                        { 
-                       isAuthenticated && (userData.userId === comment?.userId) ?
+                       isAuthenticated && (userData?.userId === comment?.userId) ?
                         <EditNoteIcon onClick={() => handleEditComment(comment._id, comment.text)} className="text-slate-400 hover:text-slate-600"/> : <MapsUgcOutlinedIcon
                         className="text-slate-400 hover:text-slate-600" key={comment._id} onClick={() => handleCommentReply(comment._id,replyText)}/>                      
                         }
