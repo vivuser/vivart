@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Suspense } from "react";
 import Link from "next/link";
 import Mostviewed from "./components/Mostviewed";

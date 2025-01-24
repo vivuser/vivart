@@ -32,10 +32,10 @@ const SingleBlogNav = () => {
     }
 
     const handleUserSelect = () => {
-        router.push(`/blogsData/author/${isUser.user.id}`)
+        router.push(`/author/${posts[0].userId}`)
     }
 
-    console
+    console.log(posts, 'POSTS')
 
     return (
         <>

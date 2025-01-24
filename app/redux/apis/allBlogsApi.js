@@ -1,5 +1,5 @@
 
-export default async function getAllBlogs() {
+export default async function getAllBlogsAPI() {
 
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs`, { cache: 'no-store' })
