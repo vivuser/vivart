@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import CommentDrawer from "./Comments";
-import getSingleBlog from "@/app/redux/apis/singleBlogApi";
+import { getSingleBlog } from "@/app/redux/apis/singleBlogApi";
 import { useParams, useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";

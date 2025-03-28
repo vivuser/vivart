@@ -6,6 +6,9 @@ import SingleBlogNav from "./SingleBlogNavComp";
 import SinglePost from "./SinglePost.css"
 import { Suspense } from "react";
 import VisibleTagsLoader from "./visibleTagsLoader";
+import LoveIconComp from "./LoveIconComp";
+import { getServerSession } from "next-auth";
+import options from "@/app/api/auth/[...nextauth]/options";
 
 export default async function UserPosts({ promise }) {
     const posts = await promise;
@@ -17,7 +20,7 @@ export default async function UserPosts({ promise }) {
     };
 
     const content = posts.map(post => (
-        <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-center mt-4" key={post.id}>
+        <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-center mt-4" key={post._id}>
             <article>
                 <h2 className="inline-block font-heading text-3xl tracking-tight lg:text-4xl mb-4">{post.title}</h2>
                 <hr />
@@ -28,6 +31,7 @@ export default async function UserPosts({ promise }) {
                 <div dangerouslySetInnerHTML={{ __html: applyCodeBlockStyling(post.content) }} className="mt-2 p-2"></div>
             </article>
             <BookIconComp />
+            <LoveIconComp userId={post.userId} blogId={post._id} initialLikes={post?.likes?.userIds?.length || 0}/>
         </div>
     ));
 

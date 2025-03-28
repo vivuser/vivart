@@ -1,8 +1,8 @@
-import getSingleBlog from "@/app/redux/apis/singleBlogApi";
 import { Suspense } from "react";
 import SinglePost from "./components/SinglePost";
 import getAllBlogs from "@/app/redux/apis/allBlogsApi";
 import axios from "axios";
+import { getSingleBlog } from "@/app/redux/apis/singleBlogApi";
 
 
 export const metadata =  {
