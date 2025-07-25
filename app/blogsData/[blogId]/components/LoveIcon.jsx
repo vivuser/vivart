@@ -1,9 +1,9 @@
 import React from 'react'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const LoveIcon = () => {
+const LoveIcon = ({ color = 'gray' }) => {
   return (
-    <FavoriteBorderIcon />
+    <FavoriteBorderIcon sx={{ color }} />
   )
 }
 

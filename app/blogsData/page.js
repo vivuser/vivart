@@ -6,6 +6,9 @@ import Search from '../components/Search';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
+import LoveIconComp from './[blogId]/components/LoveIconComp';
+import LoveIcon from './[blogId]/components/LoveIcon';
+import CommentIcon from '@mui/icons-material/Comment';
 
     export const metadata ={
         title: 'Blogs',
@@ -83,9 +86,14 @@ import VisibleTagsLoader from './[blogId]/components/visibleTagsLoader';
                                     dangerouslySetInnerHTML={{__html: truncateContent(blog.content, 250)}}>
                                     </span>
                                     <br/>
-                                    <span className='text-xs'>
-                                    {format(new Date(blog.createdAt),'MMMM dd yyyy')}
-                                    </span>
+                                    <span className='text-xs flex justify-between w-full items-center mt-2'>
+  <span>{format(new Date(blog.createdAt), 'MMMM dd yyyy')}</span>
+  <span className="flex items-center gap-1">
+    <LoveIcon style={{color:"yellow"}}/> {blog.likes.userIds.length}
+    <CommentIcon />{blog.comment.length}
+  </span>
+</span>
+
                                     </>
                             </h3>
                             <br />

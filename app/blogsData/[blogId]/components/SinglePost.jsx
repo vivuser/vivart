@@ -12,7 +12,12 @@ import options from "@/app/api/auth/[...nextauth]/options";
 
 export default async function UserPosts({ promise }) {
     const posts = await promise;
-    console.log(posts, 'this is posts on server')
+    const session = await getServerSession(options);
+    const userId = session?.user?.id
+    console.log(session?.user?.id, 'userdata on server .. .')
+
+    console.log(posts[0]?.likes?.userIds?.length , 'POST DATA COMING')
+
 
     const applyCodeBlockStyling = (htmlContent) => {
         // Use regex to find <pre> tags with class "ql-syntax" and add a custom class
@@ -31,7 +36,7 @@ export default async function UserPosts({ promise }) {
                 <div dangerouslySetInnerHTML={{ __html: applyCodeBlockStyling(post.content) }} className="mt-2 p-2"></div>
             </article>
             <BookIconComp />
-            <LoveIconComp userId={post.userId} blogId={post._id} initialLikes={post?.likes?.userIds?.length || 0}/>
+            <LoveIconComp userId={userId} blogId={post._id} initialLikes={post?.likes?.userIds?.length || 0} alreadyLiked={post?.likes?.userIds?.includes(userId)}/>
         </div>
     ));
 

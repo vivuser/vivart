@@ -23,14 +23,18 @@ export async function updateSingleBlogLike(blogId, userId) {
             body: JSON.stringify({ userId }), // Send the userId in the request body
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to update like count');
+            
+            return { success: false, ...data }
         }
 
-        // Assuming the backend responds with the updated blog data
-        const updatedBlog = await response.json();
-        return updatedBlog; // Return the updated blog to use on the frontend
+        return { success: true, ...data }
+
+        // // Assuming the backend responds with the updated blog data
+        // const updatedBlog = await response.json();
+        // return updatedBlog; // Return the updated blog to use on the frontend
     } catch (error) {
         console.error('Error updating like count:', error);
         throw error;
