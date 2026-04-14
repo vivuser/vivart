@@ -11,7 +11,7 @@ export default function StoreProvider({children}) {
     }
 
     initTracker({
-  endpoint: "https://imperfectible-procoercion-wonda.ngrok-free.app/sdk/ingest",
+  endpoint: "https://imperfectible-procoercion-wonda.ngrok-free.dev/sdk/ingest",
   apiKey: "proj_d971ef99d15153d1",
   environment: "production"
 });
