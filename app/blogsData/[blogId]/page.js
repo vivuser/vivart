@@ -16,7 +16,7 @@ export default  async function SingleBlogPage({params}) {
     const incrementViews = async () => {
         try {
             console.log('incrementing view')
-            await axios.post(`http://localhost:3001/blogs/${params.blogId}/increment-views`)
+            await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${params.blogId}/increment-views`)
         } catch (error) {
             console.error('Error incrementing views', error)
             console.log(params.blogId, 'paramsId')

@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react"
 
 
@@ -5,11 +6,11 @@ const NewComponent = () => {
 
     const [count, setCount] = useState('')
 
-    
+
 
     return (
         <div>
-            {count}
+             {count}
         </div>
     )
 

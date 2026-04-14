@@ -1,6 +1,7 @@
 import Link from "next/link";
 import getAllBlogs from "../redux/apis/allBlogsApi"
 import { format } from "date-fns";
+import { RemoveRedEye } from "@mui/icons-material";
 
 const Mostviewed = async () => {
 
@@ -28,6 +29,10 @@ const Mostviewed = async () => {
                             <div className="mb-2"> 
                           <h2 className="text-lg font-semibold">{blog.title}</h2> 
                             <hr/>
+                            <span className="text-sm text-gray-600 flex flex-row">
+                            <RemoveRedEye fontSize="sm" className="mt-1 mr-1"/>
+                            <p>{blog.views}</p>
+                            </span>
                             <br/>
                             </div>
                             <span className='text-sm'

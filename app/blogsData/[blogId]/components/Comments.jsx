@@ -71,7 +71,7 @@ export default function CommentDrawer() {
 
     const incrementViews = async () => {
         try {
-            await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${id}/increment-views`)
+            await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blogs/${id}/increment-views`)
         } catch (error) {
             console.error('Error incrementing views', error)
             console.log(id, 'paramsId')

@@ -4,6 +4,7 @@ import options from "../api/auth/[...nextauth]/options";
 import Logout from "./Logout";
 import AllBlogs from "./AllBlogs";
 import Hamburger from "./Hamburger";
+import NewComponent from "./NewDemo";
 
 const MainNavbar = async ( {showNavbar}) => {
     const session = await getServerSession(options)
@@ -35,6 +36,7 @@ const MainNavbar = async ( {showNavbar}) => {
                 <li className="mx-10"><Link href="/write">Write</Link></li>
             }
             </ul>
+            <NewComponent />
         </div>
     )
 }
