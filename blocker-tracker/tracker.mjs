@@ -3,6 +3,7 @@ let config = {
 };
 
 export function initTracker(userConfig) {
+  if (typeof window === "undefined") return;
    if (window.__TRACKER_INITIALIZED__) {
     console.log("⚠️ Tracker already initialized");
     return;
@@ -62,12 +63,12 @@ function interceptFetch() {
       typeof args[0] === "string" ? args[0] : args[0]?.url;
 
     // ❌ 1. Ignore tracker backend calls (STOP LOOP)
-    if (url.includes("https://vivart.vercel.app")) {
+    if (url.includes("http://localhost:3002")) {
       return originalFetch(...args);
     }
 
     // ❌ 2. Only track your FAIL API (CONTROL NOISE)
-    if (!url.includes("https://blogapp-backend-three.vercel.app")) {
+    if (!url.includes("http://localhost:3005")) {
       return originalFetch(...args);
     }
 
@@ -80,25 +81,29 @@ function interceptFetch() {
 
       const latency = Date.now() - startTime;
 
-      if (!response.ok) {
-        const type = getType(response.status);
+      let type = getType(response.status);
 
-        console.log("🚨 Failure:", response.status);
+// ✅ detect slow API even if success
+if (latency > 2000) {
+  console.log(latency, 'yes latency is ver y slow')
+  type = "PERFORMANCE";
+}
+      console.log(latency, 'latency...log', type)
+// ✅ unified condition
+if (!response.ok || type === "PERFORMANCE") {
+  console.log("🚨 Triggered:", response.status, type);
 
-        if (type) {
-          console.log(type, '<=type')
-          sendEvent({
-            url,
-            method: args[1]?.method || "GET",
-            statusCode: response.status,
-            type,
-            latency,
-            timestamp: new Date().toISOString(),
-                      apiKey: config.apiKey,
+  sendEvent({
+    url,
+    method: args[1]?.method || "GET",
+    statusCode: response.status,
+    type,
+    latency,
+    timestamp: new Date().toISOString(),
+    apiKey: config.apiKey,
     environment: config.environment
-          });
-        }
-      }
+  });
+}
 
       return response;
     } catch (error) {
