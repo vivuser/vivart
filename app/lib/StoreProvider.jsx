@@ -12,8 +12,8 @@ export default function StoreProvider({children}) {
 
     initTracker({
   endpoint: "http://localhost:3001/sdk/ingest",
-  apiKey: "proj_4cb3dfe5eee7383e",
-  environment: "development"
+  apiKey: "proj_430a2d7af64c39b6",
+  environment: "production"
 });
 
     return <Provider store={storeRef.current}>{children}</Provider>
