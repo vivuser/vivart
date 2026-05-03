@@ -12,3 +12,5 @@ export default async function getAllBlogs() {
 
     return res.json()
 }
+
+
