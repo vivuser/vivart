@@ -3,7 +3,10 @@ let config = {
 };
 
 export function initTracker(userConfig) {
-  if (typeof window === "undefined") return;
+if (typeof window !== "undefined" && !window.__ORIGINAL_FETCH__) {
+  window.__ORIGINAL_FETCH__ = window.fetch;
+}
+
    if (window.__TRACKER_INITIALIZED__) {
     console.log("⚠️ Tracker already initialized");
     return;
@@ -39,11 +42,13 @@ export function initTracker(userConfig) {
 function sendEvent(payload) {
   console.log("📤 Sending to backend:", payload);
 
-  fetch(config.endpoint, {
+  const fetchFn = window.__ORIGINAL_FETCH__ || fetch;
+
+  fetchFn(config.endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": config.apiKey, // 👈 Required for backend auth
+      "x-api-key": config.apiKey,
     },
     body: JSON.stringify(payload),
   })
@@ -56,72 +61,61 @@ function sendEvent(payload) {
 }
 
 function interceptFetch() {
-  const originalFetch = window.fetch
+  const originalFetch = window.fetch;
 
   window.fetch = async (...args) => {
     const url =
-      typeof args[0] === "string" ? args[0] : args[0]?.url;
+      typeof args[0] === "string"
+        ? args[0]
+        : args[0]?.url || "";
 
-    // ❌ 1. Ignore tracker backend calls (STOP LOOP)
-    if (url.includes("http://localhost:3002")) {
+    console.log("🔍 URL:", url);
+
+    if (url.includes("localhost:3001")) {
       return originalFetch(...args);
     }
 
-    // ❌ 2. Only track your FAIL API (CONTROL NOISE)
-    // if (!url.includes("http://localhost:3005")) {
-    //   return originalFetch(...args);
-    // }
+    if (!url.includes("blogapp-backend-three.vercel.app")) {
+      return originalFetch(...args);
+    }
 
     console.log("📡 Intercepted:", url);
-
-    const startTime = Date.now();
 
     try {
       const response = await originalFetch(...args);
 
-      const latency = Date.now() - startTime;
+      console.log("📡 Status:", response.status);
 
-      let type = getType(response.status);
+      if (!response.ok) {
+        const type = getType(response.status);
 
-// ✅ detect slow API even if success
-if (latency > 2000) {
-  console.log(latency, 'yes latency is ver y slow')
-  type = "PERFORMANCE";
-}
-      console.log(latency, 'latency...log', type)
-// ✅ unified condition
-if (!response.ok || type === "PERFORMANCE") {
-  console.log("🚨 Triggered:", response.status, type);
+        if (type) {
+          console.log("🚨 Sending event:", type);
 
-  sendEvent({
-    url,
-    method: args[1]?.method || "GET",
-    statusCode: response.status,
-    type,
-    latency,
-    timestamp: new Date().toISOString(),
-    apiKey: config.apiKey,
-    environment: config.environment
-  });
-}
+          sendEvent({
+            url,
+            method: args[1]?.method || "GET",
+            statusCode: response.status,
+            type,
+            timestamp: new Date().toISOString(),
+            apiKey: config.apiKey,
+            environment: config.environment
+          });
+        }
+      }
 
       return response;
     } catch (error) {
       console.log("🚨 Network error:", error.message);
-        // ✅ LATENCY FOR NETWORK ERROR
-      const latency = Date.now() - startTime;
-
-      console.log("🚨 Network error:", error.message, "⏱️", latency, "ms");
 
       sendEvent({
         url,
         method: args[1]?.method || "GET",
         type: "NETWORK",
         error: error.message,
-        latency,
         timestamp: new Date().toISOString(),
-                  apiKey: config.apiKey,
-    environment: config.environment
+        apiKey: config.apiKey,
+        environment: config.environment
       });
 
       throw error;
