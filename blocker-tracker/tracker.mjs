@@ -63,12 +63,12 @@ function interceptFetch() {
       typeof args[0] === "string" ? args[0] : args[0]?.url;
 
     // ❌ 1. Ignore tracker backend calls (STOP LOOP)
-    if (url.includes("https://vivart.vercel.app")) {
+    if (url.includes("http://localhost:3002")) {
       return originalFetch(...args);
     }
 
     // ❌ 2. Only track your FAIL API (CONTROL NOISE)
-    if (!url.includes("https://blogapp-backend-three.vercel.app")) {
+    if (!url.includes("http://localhost:3005")) {
       return originalFetch(...args);
     }
 

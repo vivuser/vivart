@@ -11,9 +11,9 @@ export default function StoreProvider({children}) {
     }
 
     initTracker({
-  endpoint: "https://imperfectible-procoercion-wonda.ngrok-free.dev/sdk/ingest",
-  apiKey: "proj_d971ef99d15153d1",
-  environment: "production"
+  endpoint: "http://localhost:3001/sdk/ingest",
+  apiKey: "proj_4cb3dfe5eee7383e",
+  environment: "development"
 });
 
     return <Provider store={storeRef.current}>{children}</Provider>
