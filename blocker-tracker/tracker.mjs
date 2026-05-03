@@ -68,9 +68,9 @@ function interceptFetch() {
     }
 
     // ❌ 2. Only track your FAIL API (CONTROL NOISE)
-    if (!url.includes("http://localhost:3005")) {
-      return originalFetch(...args);
-    }
+    // if (!url.includes("http://localhost:3005")) {
+    //   return originalFetch(...args);
+    // }
 
     console.log("📡 Intercepted:", url);
 
