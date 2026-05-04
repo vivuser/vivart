@@ -1,4 +1,3 @@
-
 export default async function getAllBlogs() {
 
 
@@ -7,5 +6,21 @@ export default async function getAllBlogs() {
 
     if (!res.ok) throw new Error('failed to fetch data')
 
-    return res.json()
+    return res.json
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
