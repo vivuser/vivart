@@ -13,7 +13,7 @@ export default function Home() {
   <Suspense fallback={<HomepageLoader/>}>
     <Mostviewed />
   </Suspense>
-  <Link href="/blogsData" className="text-slate-600 underline underline-offset-2 mt-8">Visit all blogs</Link>
+  <Link href="/blogsData" className="text-slate-600 underline underline-offset-2 mt-8 bg-slate-400">Visit all blogs</Link>
   <Suspense fallback={<p>Loading User Selections...</p>}>
   </Suspense>
   </section>
